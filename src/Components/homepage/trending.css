@@ -1,0 +1,16 @@
+@import '../../app/globals.css';
+
+.trending-products h2{
+    font-size: 2.5rem !important;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.trending-products span{
+    color: var(--primary-green);
+}
+.trending-products .trending{
+    width: 100%;
+    object-fit: contain;
+    height: 20vh;
+}
