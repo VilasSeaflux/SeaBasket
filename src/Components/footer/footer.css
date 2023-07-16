@@ -1,0 +1,17 @@
+@import '../../app/globals.css';
+
+#footer{
+    border-top: 2px solid var(--primary-green);
+}
+#footer ul li{
+    cursor: pointer;
+}
+#footer .facebook:hover{
+    color: #2f55a4;
+}
+#footer .twitter:hover{
+    color: #00b9ff;
+}
+#footer .instagram:hover{
+    color: #E1306C;
+}

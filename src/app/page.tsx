@@ -2,16 +2,16 @@
 'use client'
 
 import CarouselComp from "@/Components/homepage/Carousel"
-import Trending from "@/Components/homepage/ProductCategory"
+import ProductCategory from "@/Components/homepage/ProductCategory"
 
 export default function Home() {
   return (
-    <main className="bg-light">
-      <section className="container">
+    <main className="container">
+      <section className="container bg-light">
           <CarouselComp />
       </section>
-      <section className="container">
-        <Trending />
+      <section className="container bg-light">
+        <ProductCategory />
       </section>
     </main>
   )

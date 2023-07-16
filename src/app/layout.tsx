@@ -1,4 +1,5 @@
 // import NavBar from '../Components/NavBar'
+import Footer from '@/Components/footer/Footer';
 import NavBar from '@/Components/navbar/NavBar';
 import 'bootstrap/dist/css/bootstrap.css';
 // import './globals.css'
@@ -12,6 +13,7 @@ export const metadata = {
 
 
 
+
 export default function RootLayout({
   children,
 }: {
@@ -22,6 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NavBar />
         {children}
+        <Footer />
         </body>
     </html>
   )
