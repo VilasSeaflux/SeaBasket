@@ -1,0 +1,32 @@
+@import '../../app/globals.css';
+.nav-wrapper{
+    border-bottom: 2px solid var(--primary-green);
+}
+.navbar-logo{
+    max-width: 9vw;
+    height: 12vh;
+}
+.signup-btn{
+    background-color: white !important;
+    color: var(--primary-green) !important;
+    border: 1px solid var(--primary-green) !important;
+}
+.nav-link{
+    color: var(--text) !important;
+}
+a{
+    margin: 0 5px !important;
+}
+.signup-btn:hover{
+    background-color: var(--primary-green) !important;
+    color: white !important;
+}
+.login-btn{
+    border: 1px solid var(--primary-green) !important;
+    background-color: var(--primary-green) !important;
+}
+.login-btn:hover{
+    background-color: white !important;
+    border: 1px solid var(--primary-green) !important;
+    color: var(--primary-green) !important;
+}
