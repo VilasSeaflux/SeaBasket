@@ -12,12 +12,12 @@ import Hero6 from "../../../public/images/Hero6.jpg";
 import './carousel.css'
 // const image1 = 'https://e1.pxfuel.com/desktop-wallpaper/759/86/desktop-wallpaper-nature-full-screen-computer-nature-full-screen.jpg';
 const HeroImages = [
-    {"src":Hero1},
-    {"src":Hero2},
-    {"src":Hero3},
-    {"src":Hero4},
-    {"src":Hero5},
-    {"src":Hero6}
+    { "src": Hero1 },
+    { "src": Hero2 },
+    { "src": Hero3 },
+    { "src": Hero4 },
+    { "src": Hero5 },
+    { "src": Hero6 }
 ];
 
 const CarouselComp: FC = () => {
@@ -26,20 +26,25 @@ const CarouselComp: FC = () => {
         setIndex(selectedIndex)
     }
     return (
-        <Carousel activeIndex={index} onSelect={handleSelect} id="carousel" className="pt-5">
-            {
-                HeroImages.map((image,index): any => {
-                    return<Carousel.Item key={index} >
-                        <Image
-                            className="d-block w-100 ci"
-                            src={image.src}
-                            alt="image 1"
+        <div id="carousel" className="pt-3">
+            <h2 className="mb-2">Trending <span>Products</span></h2>
+            <Carousel activeIndex={index} onSelect={handleSelect}  className="pt-2">
+                {
+                    HeroImages.map((image, index): any => {
+                        return <Carousel.Item key={index} >
+                            <Image
+                                className="d-block w-100 ci"
+                                src={image.src}
+                                alt="image 1"
 
-                        />
-                    </Carousel.Item>
-                })
-            }
-        </Carousel>
+                            />
+                        </Carousel.Item>
+                    })
+                }
+            </Carousel>
+
+        </div>
+
     );
 }
 export default CarouselComp;

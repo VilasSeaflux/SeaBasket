@@ -2,7 +2,7 @@
 'use client'
 
 import CarouselComp from "@/Components/homepage/Carousel"
-import Trending from "@/Components/homepage/Trending"
+import Trending from "@/Components/homepage/ProductCategory"
 
 export default function Home() {
   return (

@@ -2,3 +2,12 @@
     width: 100% !important;
     height: 35vh !important;
 }
+#carousel h2{
+    font-size: 2.5rem !important;
+    font-weight: 700;
+    color: var(--text);
+}
+
+#carousel span{
+    color: var(--primary-green);
+}

@@ -1,15 +1,15 @@
 @import '../../app/globals.css';
 
-.trending-products h2{
+#productCategory h2{
     font-size: 2.5rem !important;
     font-weight: 700;
     color: var(--text);
 }
 
-.trending-products span{
+#productCategory span{
     color: var(--primary-green);
 }
-.trending-products .trending{
+#productCategory .category{
     width: 100%;
     object-fit: contain;
     height: 20vh;
