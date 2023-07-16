@@ -1,0 +1,55 @@
+@import '../globals.css';
+.auth-container{
+    height: 100vh;
+}
+.auth-container h2{
+    color: var(--primary-green) !important;
+    font-weight: 800;
+}
+.auth-container span{
+    color: var(--text) !important;
+}
+.auth-container .form-div{
+    border: 1px solid var(--text) !important;
+    border-radius: 8px;
+}
+.auth-container div p{
+    color: var(--text);
+}
+.auth-container div a{
+    color: var(--primary-green);
+}
+
+.auth-container input{
+    padding: 8px 18px;
+    border: 1px solid var(--text) !important;
+    border-radius: 8px;
+}
+label{
+    color: var(--text) !important;
+}
+
+.continue-btn{
+    background-color: var(--primary-green) !important;
+    border: 1px solid var(--primary-green) !important;
+}
+
+.toast{
+    top: 15vh;
+    right: 20px;
+    border-radius: 10px;
+}
+
+.toast-success-body{
+ background-color: var(--primary-green);
+ color: var(--text);
+ font-size: 1rem;
+ border-radius: 10px;
+}
+
+.toast-error-body{
+    background-color: rgb(238, 88, 88);
+    color: var(--text);
+    font-size: 1rem;
+    border-radius: 10px;
+}
