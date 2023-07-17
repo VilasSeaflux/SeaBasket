@@ -1,6 +1,7 @@
 // import NavBar from '../Components/NavBar'
 import Footer from '@/Components/footer/Footer';
 import NavBar from '@/Components/navbar/NavBar';
+import RTKProvider from '@/Redux/Provider';
 import 'bootstrap/dist/css/bootstrap.css';
 // import './globals.css'
 import { Inter } from 'next/font/google'
@@ -12,6 +13,7 @@ export const metadata = {
 }
 
 
+
 export default function RootLayout({
   children,
 }: {
@@ -20,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NavBar />
-        {children}
-        <Footer />
-        </body>
+        <RTKProvider>
+          <NavBar />
+          {children}
+          <Footer />
+        </RTKProvider>
+      </body>
     </html>
   )
 }

@@ -8,7 +8,8 @@ const Profile: FC = () => {
     // const [isAuth, setIsAuth] = useState(false);
     const router = useRouter();
     const {isAuth,token} = useAuth();
-    console.log(token)
+    console.log(token,isAuth);
+
     // const token = JSON.stringify(localStorage.getItem('token'));
     // console.log(token);
     // const cookies = new Cookies();
