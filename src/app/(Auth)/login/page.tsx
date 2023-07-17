@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import wait from '@/Helper/wait';
+import useAuth from '@/Hooks/useAuth';
 
 
 const LOGIN = '/login';
@@ -23,6 +24,8 @@ const Login = () => {
     });
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter();
+    const {token,isAuth} = useAuth();
+    
     const handleRedirect = () => {
         setRedirectPage(!redirectPage);
     }
@@ -58,6 +61,16 @@ const Login = () => {
         login(data);
         reset();
     }
+    useEffect(() => {
+        if(token){
+            router.push('/profile');
+            return;
+        }
+    });
+    if(!isAuth){
+        return <p>Loading....</p>;
+    }
+    
     return (
         <section className="container d-flex flex-column justify-content-center align-items-center auth-container">
             <Toast

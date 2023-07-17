@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import axios from '@/Helper/axios';
+import wait from '@/Helper/wait';
+import useAuth from '@/Hooks/useAuth';
 
 
 
@@ -33,6 +35,8 @@ const SignUp: FC = () => {
         reset,
     } = useForm();
     const router = useRouter();
+    const {token,isAuth} = useAuth();
+
     const handleSuccess = () => {
         setSuccessToast(!successToast);
     }
@@ -73,6 +77,16 @@ const SignUp: FC = () => {
         reset();
         signUp(data);
     }
+    useEffect(() => {
+        if(token){
+            router.push('/profile');
+            return;
+        }
+    });
+    if(!isAuth){
+        return <p>Loading....</p>;
+    }
+    
     return (
         <section className="container d-flex flex-column justify-content-center align-items-center auth-container">
             <Toast
