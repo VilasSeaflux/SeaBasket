@@ -32,7 +32,7 @@ const SignUp: FC = () => {
         formState: { errors },
         reset,
     } = useForm();
-    const nav = useRouter();
+    const router = useRouter();
     const handleSuccess = () => {
         setSuccessToast(!successToast);
     }
@@ -55,7 +55,9 @@ const SignUp: FC = () => {
             console.log(res)
             const data = await res.data;
             handleSuccess();
-            console.log(data);
+            // console.log(data);
+            await wait(2000);
+            router.push('/login');
         } catch (error) {
             // alert(error?.message?.msg)
             console.log(error);
@@ -81,7 +83,7 @@ const SignUp: FC = () => {
                 className='position-absolute toast'>
                 <Toast.Body className='toast-success-body'>
                     User Created Successfully!!
-                    Please Login.
+                    Redirecting to login page...
                 </Toast.Body>
             </Toast>
             <Toast
