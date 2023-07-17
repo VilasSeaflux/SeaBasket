@@ -1,37 +1,61 @@
 'use client'
-import { FC } from "react";
-import { Button } from "react-bootstrap";
+import { FC, useEffect, useState } from "react";
+import { Button, Toast } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import '../../page.css'
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "@/Helper/axios";
+import wait from "@/Helper/wait";
+import { useCookies } from "react-cookie";
+
 
 interface otp {
     OTP: string;
 }
 
 const Verification: FC = () => {
+    const [redirectPage, setRedirectPage] = useState(false);
+    const [errorToast, setErrorToast] = useState({
+        show: false,
+        errorMessage: '',
+    });
     const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const { token } = useParams();
-    console.log(token);
+    const [cookies,setCookies] = useCookies(['token']);
+    const handleError = (msg: string) => {
+        setErrorToast({
+            show: !errorToast.show,
+            errorMessage: msg
+        });
+    }
+    const handleRedirect = () => {
+        setRedirectPage(!redirectPage);
+    }
+    const routeToken = useParams();
+    const router = useRouter();
+    // console.log(routeToken);
 
     const verifyUser = async (otp: otp) => {
         try {
             const res = await axios.post(
-                token,
+                '/login/' + routeToken.token,
                 JSON.stringify(otp),
                 {
-                    headers: { "Content-Type": "application/json"},
+                    headers: { "Content-Type": "application/json" },
                     // withCredentials: true,
                 }
             );
             console.log(res);
             const data = await res.data;
-            console.log(data);
+            const token = await res?.data?.authToken;
+            console.log({data,token})
+            setCookies('token',token);
+            handleRedirect();
+            await wait(2000);
+            router.push('/profile')
         }
-        catch(error){
+        catch (error) {
             console.log(error);
+            handleError(error?.response?.data?.message);
         }
     }
 
@@ -39,8 +63,29 @@ const Verification: FC = () => {
         console.log(data);
         verifyUser(data);
     }
+
     return (
         <section className="container d-flex flex-column justify-content-center align-items-center auth-container">
+            <Toast
+                show={redirectPage}
+                onClose={handleRedirect}
+                animation={true}
+                autohide={true}
+                className='position-absolute toast'>
+                <Toast.Body className='toast-success-body'>
+                    User Varified, Redirecting to Profile...
+                </Toast.Body>
+            </Toast>
+            <Toast
+                show={errorToast.show}
+                onClose={() => handleError('')}
+                animation={true}
+                autohide={true}
+                className='position-absolute toast'>
+                <Toast.Body className='toast-error-body'>
+                    {errorToast.errorMessage}
+                </Toast.Body>
+            </Toast>
             <h2 className="mt-3 "><span>Sign Up To</span> SeaBasket</h2>
             <div className="w-sm-75 p-5 mt-3 form-div">
                 <form onSubmit={handleSubmit(onSubmit)}>

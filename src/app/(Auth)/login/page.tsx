@@ -5,14 +5,16 @@ import { Button, Toast } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import wait from '@/Helper/wait';
+
 
 const LOGIN = '/login';
-
 interface User {
     "emailOrPhoneNo": string | number;
     "password": string
 }
+
 const Login = () => {
     const [redirectPage, setRedirectPage] = useState(false);
     const [errorToast,setErrorToast] = useState({
@@ -43,14 +45,9 @@ const Login = () => {
             console.log(res);
             const token = await res?.data?.verificationtoken;
             console.log(token);
-            setTimeout(() => {
-                console.log(redirectPage);
-                handleRedirect();
-                console.log(redirectPage);
-                router.push(`login/${token}`);
-            }, 1000);
-            
-
+            handleRedirect();
+            await wait(2000);
+            router.push(`login/${token}`);
         } catch (error) {
             console.log(error);
             handleError(error?.response?.data?.message);
@@ -70,8 +67,7 @@ const Login = () => {
                 autohide={true}
                 className='position-absolute toast'>
                 <Toast.Body className='toast-success-body'>
-                    User Created Successfully!!
-                    Please Login.
+                    Redirecting To verification page
                 </Toast.Body>
             </Toast>
             <Toast
