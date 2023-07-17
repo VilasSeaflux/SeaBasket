@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { Button, Col, Row } from "react-bootstrap";
 const Profile: FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const router = useRouter();
     const { isAuth, token } = useAuth();
     console.log(token, isAuth);
 
