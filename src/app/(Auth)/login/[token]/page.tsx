@@ -7,6 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "@/Helper/axios";
 import wait from "@/Helper/wait";
 import { useCookies } from "react-cookie";
+import useAuth from "@/Hooks/useAuth";
 
 
 interface otp {
@@ -21,6 +22,8 @@ const Verification: FC = () => {
     });
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [cookies,setCookies] = useCookies(['token']);
+    const {token,isAuth} = useAuth();
+
     const handleError = (msg: string) => {
         setErrorToast({
             show: !errorToast.show,
@@ -63,6 +66,16 @@ const Verification: FC = () => {
         console.log(data);
         verifyUser(data);
     }
+    useEffect(() => {
+        if(token){
+            router.push('/profile');
+            return;
+        }
+    });
+    if(!isAuth){
+        return <p>Loading....</p>;
+    }
+    
 
     return (
         <section className="container d-flex flex-column justify-content-center align-items-center auth-container">
