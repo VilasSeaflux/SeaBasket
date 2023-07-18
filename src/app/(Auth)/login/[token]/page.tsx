@@ -22,7 +22,7 @@ const Verification: FC = () => {
     });
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [cookies,setCookies] = useCookies(['token']);
-    const {token,isAuth} = useAuth();
+    // const {token,isAuth} = useAuth();
 
     const handleError = (msg: string) => {
         setErrorToast({
@@ -66,15 +66,15 @@ const Verification: FC = () => {
         console.log(data);
         verifyUser(data);
     }
-    useEffect(() => {
-        if(token){
-            router.push('/profile');
-            return;
-        }
-    });
-    if(!isAuth){
-        return <p>Loading....</p>;
-    }
+    // useEffect(() => {
+    //     if(token){
+    //         router.push('/profile');
+    //         return;
+    //     }
+    // });
+    // if(!isAuth){
+    //     return <p>Loading....</p>;
+    // }
     
 
     return (
