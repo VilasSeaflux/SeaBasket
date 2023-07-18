@@ -10,7 +10,7 @@ import { getUserData, updateProfile } from "@/Redux/Features/userSlice";
 
 
 const Profile: FC = () => {
-    const profile = useSelector((state: any) => state.userReducer.profile);
+    const profile = useSelector((state: any) => state.user.profile);
     const [profileData, setProfileData] = useState({
         name: '',
         email: '',
