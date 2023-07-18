@@ -1,23 +1,52 @@
 'use client'
+
 import useAuth from "@/Hooks/useAuth";
-import { useRouter } from "next/navigation";
-import { FC, useEffect, useState } from "react";
+import { FC, FormEvent, SyntheticEvent, useEffect, useState } from "react";
 import './profile.css'
 import { useForm } from "react-hook-form";
 import { Button, Col, Row } from "react-bootstrap";
-const Profile: FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const router = useRouter();
-    const { isAuth, token } = useAuth();
-    console.log(token, isAuth);
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserData, updateProfile } from "@/Redux/Features/userSlice";
 
+
+const Profile: FC = () => {
+    const profile = useSelector((state: any) => state.userReducer.profile);
+    const [profileData, setProfileData] = useState({
+        name: '',
+        email: '',
+        phoneNo: '',
+    })
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { isAuth, token }: any = useAuth();
+    const dispatch = useDispatch();
+    console.log(token, isAuth);
+    console.log(profileData);
     const onSubmit = (data: {}) => {
         console.log(data);
+        dispatch(updateProfile(data));
+    }
+
+    useEffect(() => {
+        if(profile){
+            setProfileData(profile);
+        }
+    },[profile]);
+
+    useEffect(() => {
+        dispatch(getUserData(token));
+    }, []);
+
+    const handleChange = (e: any) => {
+        setProfileData(
+            {
+                ...profileData,
+                [e.target.name]: e.target.value,
+            }
+        );
     }
     if (!isAuth) {
         return <p>Loading....</p>
     }
-
     return (
         <section id="profile" className="container bg-light py-3">
             <div>
@@ -33,11 +62,14 @@ const Profile: FC = () => {
                                 <input
                                     type="text"
                                     id="name"
+                                    value={profileData.name}
                                     className="form-control"
-                                    {...register('name')} />
-                                    {
-                                        errors.name && <small>Please Enter Name</small>
-                                    }
+                                    {...register('name')}
+                                    onChange={handleChange}
+                                />
+                                {
+                                    errors.name && <small>Please Enter Name</small>
+                                }
                             </div>
                         </Col>
                         <Col xs={12} md={6}>
@@ -46,8 +78,13 @@ const Profile: FC = () => {
                                 <input
                                     type="email"
                                     id="email"
+                                    value={profileData.email}
                                     className="form-control"
-                                    {...register('email')} />
+                                    {...register('email')}
+                                    onChange={handleChange}
+
+
+                                />
                             </div>
                         </Col>
                         <Col xs={12} md={6}>
@@ -56,8 +93,14 @@ const Profile: FC = () => {
                                 <input
                                     type="number"
                                     id="PhoneNo"
+                                    value={profileData.phoneNo}
                                     className="form-control"
-                                    {...register('PhoneNo')} />
+                                    {...register('phoneNo')}
+                                    onChange={handleChange}
+
+
+                                />
+
                             </div>
                         </Col>
                     </Row>
@@ -65,15 +108,15 @@ const Profile: FC = () => {
                         <h4><span>Residential</span> Details</h4>
                         <Col xs={12} md={6}>
                             <div className="mb-2">
-                                <label htmlFor="street" className="form-label">Street</label>
+                                <label htmlFor="address" className="form-label">Address</label>
                                 <input
                                     type="text"
-                                    id="street"
+                                    id="address"
                                     className="form-control"
-                                    {...register('street')} />
+                                    {...register('address')} />
                             </div>
                         </Col>
-                        <Col xs={12} md={6}>
+                        {/* <Col xs={12} md={6}>
                             <div className="mb-2">
                                 <label htmlFor="street2" className="form-label">Street 2</label>
                                 <input
@@ -81,6 +124,16 @@ const Profile: FC = () => {
                                     id="street2"
                                     className="form-control"
                                     {...register('street2')} />
+                            </div>
+                        </Col> */}
+                        <Col xs={12} md={6}>
+                            <div className="mb-2">
+                                <label htmlFor="zip" className="form-label">Zip Code</label>
+                                <input
+                                    type="number"
+                                    id="zip"
+                                    className="form-control"
+                                    {...register('zip')} />
                             </div>
                         </Col>
                         <Col xs={12} md={6}>
@@ -95,16 +148,6 @@ const Profile: FC = () => {
                         </Col>
                         <Col xs={12} md={6}>
                             <div className="mb-2">
-                                <label htmlFor="zip" className="form-label">Zip Code</label>
-                                <input
-                                    type="number"
-                                    id="zip"
-                                    className="form-control"
-                                    {...register('zip')} />
-                            </div>
-                        </Col>
-                        <Col xs={12} md={6}>
-                            <div className="mb-2">
                                 <label htmlFor="state" className="form-label">State</label>
                                 <input
                                     type="text"
@@ -113,7 +156,7 @@ const Profile: FC = () => {
                                     {...register('state')} />
                             </div>
                         </Col>
-                        <Col xs={12} md={6}>
+                        {/* <Col xs={12} md={6}>
                             <div className="mb-2">
                                 <label htmlFor="country" className="form-label">Country</label>
                                 <input
@@ -122,7 +165,7 @@ const Profile: FC = () => {
                                     className="form-control"
                                     {...register('country')} />
                             </div>
-                        </Col>
+                        </Col> */}
                     </Row>
                     <div>
                         <Button type="submit" className="update-btn">Update</Button>
