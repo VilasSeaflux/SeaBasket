@@ -1,7 +1,7 @@
+
 // import NavBar from '../Components/NavBar'
 import Footer from '@/Components/footer/Footer';
 import NavBar from '@/Components/navbar/NavBar';
-import { SessionProvider } from 'next-auth/react'
 import RTKProvider from '@/Redux/Provider';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Inter } from 'next/font/google'
@@ -19,21 +19,20 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-  session
 }: {
   children: React.ReactNode,
-  session: any,
 }) {
   return (
-    <html lang="en">
+    <html lang="en" >
+      <head>
+        <title>SeaBasket</title>
+      </head>
       <body className={inter.className}>
-        <SessionProvider session={session}>
-          <RTKProvider>
-            <NavBar />
-            {children}
-            <Footer />
-          </RTKProvider>
-        </SessionProvider>
+        <RTKProvider>
+          <NavBar />
+          {children}
+          <Footer />
+        </RTKProvider>
       </body>
     </html>
   )

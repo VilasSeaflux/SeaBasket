@@ -9,10 +9,14 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setIsAuth(state){
-            state.isAuth = true;
+            state.isAuth = !state.isAuth;
+        },
+        removeIsAuth(state){
+            state.isAuth = !state.isAuth;
         }
+
     }
 });
 
 export default authSlice.reducer;
-export const {setIsAuth} = authSlice.actions;
+export const {setIsAuth,removeIsAuth} = authSlice.actions;

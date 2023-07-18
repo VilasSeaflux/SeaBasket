@@ -7,7 +7,8 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "@/Helper/axios";
 import wait from "@/Helper/wait";
 import { useCookies } from "react-cookie";
-import useAuth from "@/Hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { setIsAuth } from "@/Redux/Features/Auth";
 
 
 interface otp {
@@ -22,6 +23,7 @@ const Verification: FC = () => {
     });
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [cookies,setCookies] = useCookies(['token']);
+    const dispatch = useDispatch(); 
     // const {token,isAuth} = useAuth();
 
     const handleError = (msg: string) => {
@@ -35,19 +37,20 @@ const Verification: FC = () => {
     }
     const routeToken = useParams();
     const router = useRouter();
-    // console.log(routeToken);
+    console.log(routeToken);
 
     const verifyUser = async (otp: otp) => {
         try {
             const res = await axios.post(
-                '/login/' + routeToken.token,
+                '/login/' + routeToken?.token,
                 JSON.stringify(otp),
             );
             console.log(res);
-            const data = await res.data;
+            // const data = await res.data;
             const token = await res?.data?.authToken;
-            console.log({data,token})
+            // console.log({data,token})
             setCookies('token',token);
+            dispatch(setIsAuth());
             handleRedirect();
             await wait(2000);
             router.push('/profile')
