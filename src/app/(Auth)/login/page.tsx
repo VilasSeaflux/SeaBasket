@@ -50,6 +50,7 @@ const Login = () => {
             console.log(token);
             handleRedirect();
             await wait(2000);
+            reset();
             router.push(`login/${token}`);
         } catch (error) {
             console.log(error);
@@ -59,7 +60,6 @@ const Login = () => {
     const onSubmit: any = (data: User) => {
         console.log(data);
         login(data);
-        reset();
     }
     useEffect(() => {
         if(token){

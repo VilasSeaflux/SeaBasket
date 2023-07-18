@@ -57,7 +57,7 @@ const SignUp: FC = () => {
                 }
             );
             console.log(res)
-            const data = await res.data;
+            // const data = await res.data;
             handleSuccess();
             // console.log(data);
             await wait(2000);
@@ -80,7 +80,6 @@ const SignUp: FC = () => {
     useEffect(() => {
         if(token){
             router.push('/profile');
-            return;
         }
     });
     if(!isAuth){
