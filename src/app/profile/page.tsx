@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { Button, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserData, updateProfile } from "@/Redux/Features/userSlice";
+import Loading from "../loading";
 
 
 const Profile: FC = () => {
@@ -45,7 +46,7 @@ const Profile: FC = () => {
         );
     }
     if (!isAuth) {
-        return <p>Loading....</p>
+        return <Loading />
     }
     return (
         <section id="profile" className="container bg-light py-3">
