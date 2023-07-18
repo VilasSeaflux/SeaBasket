@@ -4,7 +4,16 @@ import './footer.css';
 import Image from 'next/image';
 import logo from '../../../public/images/logo.png'
 import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs';
+import { useEffect, useState } from 'react';
 const Footer = () => {
+    const [show,setShow] = useState(false);
+    useEffect(() => {
+        setShow(true);
+    });
+
+    if(!show){
+        return;
+    }
     return (
         <section id="footer" className="">
             <div className='container'>

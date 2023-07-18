@@ -39,13 +39,13 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         updateProfile(state,action){
-            if(state.profile.name !== action.payload.name){
+            if(action.payload.name){
                 state.profile.name = action.payload.name
             }
-            if(state.profile.email !== action.payload.email){
+            if(action.payload.email){
                 state.profile.email = action.payload.email
             }
-            if(state.profile.phoneNo !== action.payload.phoneNo){
+            if( action.payload.phoneNo){
                 state.profile.phoneNo = action.payload.phoneNo
             }
         }
