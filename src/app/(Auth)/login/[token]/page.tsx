@@ -42,10 +42,6 @@ const Verification: FC = () => {
             const res = await axios.post(
                 '/login/' + routeToken.token,
                 JSON.stringify(otp),
-                {
-                    headers: { "Content-Type": "application/json" },
-                    // withCredentials: true,
-                }
             );
             console.log(res);
             const data = await res.data;
@@ -56,7 +52,7 @@ const Verification: FC = () => {
             await wait(2000);
             router.push('/profile')
         }
-        catch (error) {
+        catch (error:any) {
             console.log(error);
             handleError(error?.response?.data?.message);
         }

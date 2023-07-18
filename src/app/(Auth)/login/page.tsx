@@ -8,9 +8,10 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import wait from '@/Helper/wait';
 import useAuth from '@/Hooks/useAuth';
+import { LOGIN } from '@/Helper/CONSTANTS';
 
 
-const LOGIN = '/login';
+
 interface User {
     "emailOrPhoneNo": string | number;
     "password": string
@@ -25,7 +26,7 @@ const Login = () => {
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter();
     const {token,isAuth} = useAuth();
-    
+
     const handleRedirect = () => {
         setRedirectPage(!redirectPage);
     }
@@ -40,10 +41,6 @@ const Login = () => {
             const res = await axios.post(
                 LOGIN,
                 JSON.stringify(loginData),
-                {
-                    headers: { "Content-Type": "application/json" },
-                    // withCredentials: true,
-                }
             );
             console.log(res);
             const token = await res?.data?.verificationtoken;
@@ -52,7 +49,7 @@ const Login = () => {
             await wait(2000);
             reset();
             router.push(`login/${token}`);
-        } catch (error) {
+        } catch (error:any) {
             console.log(error);
             handleError(error?.response?.data?.message);
         }

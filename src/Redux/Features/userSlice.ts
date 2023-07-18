@@ -16,7 +16,7 @@ const initialState = {
     orders: [],
 }
 
-const PROFILE = 'profile'
+
 export const getUserData:any = createAsyncThunk('get/UserData', async (token) => {
     const res = await axios.get(
         PROFILE,

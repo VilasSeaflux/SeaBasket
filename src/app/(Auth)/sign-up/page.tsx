@@ -8,6 +8,7 @@ import Link from 'next/link';
 import axios from '@/Helper/axios';
 import wait from '@/Helper/wait';
 import useAuth from '@/Hooks/useAuth';
+import { SIGN_UP } from '@/Helper/CONSTANTS';
 
 
 
@@ -19,7 +20,7 @@ interface User {
     "phoneNo": number,
     "password": string,
 }
-const SIGN_UP: string = '/signup';
+
 
 const SignUp: FC = () => {
     // const [userData, setUserData] = useState<User>();
@@ -51,10 +52,6 @@ const SignUp: FC = () => {
             const res = await axios.post(
                 SIGN_UP,
                 JSON.stringify(userInputData),
-                {
-                    headers: { "Content-Type": "application/json" },
-                    
-                }
             );
             console.log(res)
             // const data = await res.data;
@@ -62,7 +59,7 @@ const SignUp: FC = () => {
             // console.log(data);
             await wait(2000);
             router.push('/login');
-        } catch (error) {
+        } catch (error:any) {
             // alert(error?.message?.msg)
             console.log(error);
             console.log(error?.response?.data?.message?.msg);
