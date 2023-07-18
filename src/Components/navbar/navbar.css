@@ -3,7 +3,7 @@
     border-bottom: 2px solid var(--primary-green);
 }
 .navbar-logo{
-    max-width: 9vw;
+    max-width: 6vw;
     height: 12vh;
 }
 .signup-btn{
@@ -13,9 +13,6 @@
 }
 .nav-link{
     color: var(--text) !important;
-}
-a{
-    margin: 0 5px !important;
 }
 .signup-btn:hover{
     background-color: var(--primary-green) !important;
@@ -29,4 +26,47 @@ a{
     background-color: white !important;
     border: 1px solid var(--primary-green) !important;
     color: var(--primary-green) !important;
+}
+.profile{
+    width: 3vw;
+    height: auto;
+    padding: 0;margin: 0;
+    border: 1px solid var(--primary-green);
+    border-radius: 50%;
+    margin-left: 10px;
+}
+.dropdown .dd-toggle{
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: inherit !important;
+    border: none;
+    margin-left: 5px;
+}
+.dropdown a{
+    color: var(--text) !important;
+}
+.dropdown a:hover{
+    color: var(--primary-green) !important;
+}
+
+@media screen and (max-width: 500px){
+    .profile{
+        width: 8vw;
+        height: auto;
+    }
+}
+
+
+@media screen and (max-width: 700px){
+    .profile{
+        width: 6vw;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 1400px){
+    .profile{
+        width: 3vw ;
+        height: auto;
+    }
 }
