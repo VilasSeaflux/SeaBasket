@@ -1,21 +1,22 @@
 'use client'
+import { useEffect, useState } from 'react';
+import { Button, Container, Nav, Navbar, Dropdown } from 'react-bootstrap';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
-import './navbar.css'
 import logo from '../../../public/images/logo.png';
-import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { cookies } from 'next/dist/client/components/headers';
+import profile from '../../../public/images/profile.webp'
+import './navbar.css'
+
 import { useCookies } from 'react-cookie';
-import { useEffect, useState } from 'react';
 export default function NavBar() {
-    const [show,setShow] = useState(false);
+    const [show, setShow] = useState(false);
     const [cookies] = useCookies(['token']);
     useEffect(() => {
         setShow(true);
-    },[])
+    }, [])
 
-    if(!show){
+    if (!show) {
         return;
     }
     return (
@@ -43,11 +44,29 @@ export default function NavBar() {
                                 </Button>
                             </Link>
                         ) : (
-                            <Link href="/login">
-                                <Button className='login-btn'>
-                                    Logout
-                                </Button>
-                            </Link>
+                            <>
+                                <Dropdown className='dropdown'>
+                                    <Dropdown.Toggle className='dd-toggle'>
+                                        <Image src={profile} alt={'profile picture'} className='profile' />
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item>
+                                            <Link className='text-decoration-none' href="/profile">
+                                                Profile
+                                            </Link>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item>
+                                            Logout
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+
+                                {/* <Link href="/login">
+                                    <Button className='login-btn'>
+                                        Logout
+                                    </Button>
+                                </Link> */}
+                            </>
                         )
                     }
 
