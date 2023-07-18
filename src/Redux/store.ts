@@ -9,8 +9,8 @@ import axios from '@/Helper/axios';
 
 export const store = configureStore({
     reducer: {
-        authReducer,
-        userReducer,
+        "auth":authReducer,
+        "user":userReducer,
     }
 });
 
