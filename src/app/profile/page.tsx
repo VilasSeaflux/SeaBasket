@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import useAuth from "@/Hooks/useAuth";
 import { FC, FormEvent, SyntheticEvent, useEffect, useState } from "react";
@@ -35,7 +35,7 @@ const Profile: FC = () => {
 
     useEffect(() => {
         dispatch(getUserData(token));
-    }, []);
+    }, [dispatch,token]);
 
     const handleChange = (e: any) => {
         setProfileData(
