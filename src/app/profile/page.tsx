@@ -50,6 +50,7 @@ const Profile: FC = () => {
     }
     return (
         <section id="profile" className="container bg-light py-3">
+            
             <div>
                 <h1 className="text-center"><span>User</span> Profile</h1>
             </div>

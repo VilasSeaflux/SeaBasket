@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import wait from '@/Helper/wait';
 import useAuth from '@/Hooks/useAuth';
 import { LOGIN } from '@/Helper/CONSTANTS';
+import Loading from '@/app/loading';
 
 
 
@@ -61,11 +62,10 @@ const Login = () => {
     useEffect(() => {
         if(token){
             router.push('/profile');
-            return;
         }
-    });
+    },[token,router]);
     if(!isAuth){
-        return <p>Loading....</p>;
+        return <Loading />;
     }
     
     return (
