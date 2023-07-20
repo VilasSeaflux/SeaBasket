@@ -16,12 +16,9 @@ const ProductCategory: FC = () => {
     const dispatch = useDispatch();
     const productsData = useSelector((state) => state?.product?.category);
     const handleShow = () => setShowCanvas(!showCanvas);
-    // console.log(productsData);
     const { category } = useParams();
-    // console.log(category);
     const { token, isAuth } = useAuth();
     const decodedURL = decodeURI(category);
-    // console.log(decodedURL);
 
     useEffect(() => {
         // getCategoryProduct();
@@ -42,7 +39,7 @@ const ProductCategory: FC = () => {
             <div className='container'>
                 {
                     productsData.map((item: any) => (
-                        <ProductCard productData={item} key={item.index} />
+                        <ProductCard productData={item} key={item.id} url={decodedURL}/>
                     ))
                 }
             </div>

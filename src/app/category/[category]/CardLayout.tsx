@@ -4,19 +4,19 @@ import Link from "next/link";
 import { Badge, Col, Row } from "react-bootstrap";
 import { AiFillStar } from 'react-icons/ai'
 
-export default function ProductCard({ productData }: { productData: any }) {
+export default function ProductCard({ productData, url}: { productData: any,url:string }) {
     return (
         <div className='card'>
             <div className='card-body'>
                 <Row className='align-items-center justify-content-center'>
                     <Col sm={3} className="text-center">
-                        <Link href={`product/${productData.id}`} className="text-decoration-none">
+                        <Link href={`${url}/product/${productData.id}`} className="text-decoration-none">
                             <img src={productData.imageUrl} alt='laptop 1' className='img-thumbnail border-0' />
                         </Link>
                     </Col>
                     <Col sm={9}>
                         <div className='d-flex flex-column align-items-start'>
-                            <Link href={`product/${productData.id}`} className="text-decoration-none">
+                            <Link href={`${url}/product/${productData.id}`} className="text-decoration-none">
                                 <h4>{productData.name}</h4>
                             </Link>
                             {
