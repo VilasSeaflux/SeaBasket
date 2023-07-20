@@ -1,23 +1,37 @@
 "use client"
-import Image from "next/image";
-import { Col, Row } from "react-bootstrap";
-import laptop1 from '../../../../public/images/cat-laptop-1.jpg';
+import Rupee from "@/Helper/priceFormat";
+import Link from "next/link";
+import { Badge, Col, Row } from "react-bootstrap";
+import { AiFillStar } from 'react-icons/ai'
 
-export default function ProductCard() {
+export default function ProductCard({ productData }: { productData: any }) {
     return (
         <div className='card'>
-            <div className='card-body d-flex flex-row'>
-                <Row className='align-items-center'>
-                    <Col sm={3} >
-                        <Image src={laptop1} alt='laptop 1' className='img-thumbnail border-0' />
+            <div className='card-body'>
+                <Row className='align-items-center justify-content-center'>
+                    <Col sm={3} className="text-center">
+                        <Link href={`product/${productData.id}`} className="text-decoration-none">
+                            <img src={productData.imageUrl} alt='laptop 1' className='img-thumbnail border-0' />
+                        </Link>
                     </Col>
                     <Col sm={9}>
-                        <div className='d-flex flex-column'>
-                            <h4>ASUS TUF Gaming A15, (39.62 cms) FHD 144Hz, AMD Ryzen 7 4800H, 4GB GeForce RTX 3050 Graphics, Gaming Laptop</h4>
-                            <div>
-                                Ratings
+                        <div className='d-flex flex-column align-items-start'>
+                            <Link href={`product/${productData.id}`} className="text-decoration-none">
+                                <h4>{productData.name}</h4>
+                            </Link>
+                            {
+                                productData.saleCount > 1000 ? (
+                                    <Badge className="px-3 py-2 bg-danger">Best Seller</Badge>
+                                ) : ''
+                            }
+                            <div className="d-flex justify-content-center align-items-center">
+                                <p className="my-auto"><span>{productData.avgRating}</span> <span><AiFillStar className="h5 mt-1" fill="#FFBF00" /></span></p>
                             </div>
-                            <h5><sup>&#8377;</sup>69,900</h5>
+                            <h5>
+                                {
+                                    Rupee.format(productData.price)
+                                }
+                            </h5>
                         </div>
                     </Col>
                 </Row>

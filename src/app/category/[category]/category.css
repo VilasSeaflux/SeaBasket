@@ -11,3 +11,14 @@
 #productCategory h1 span,h6 {
     color: var(--text) !important;
 }
+#productCategory img{
+    height: 20vh;
+    width: auto;
+    /* object-fit: cover; */
+}
+#productCategory a{
+    color: var(--text);
+}
+#productCategory a:hover{
+    color: rgb(34, 30, 30);
+}
