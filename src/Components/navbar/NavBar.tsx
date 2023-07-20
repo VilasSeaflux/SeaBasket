@@ -9,18 +9,24 @@ import profile from '../../../public/images/profile.webp'
 import './navbar.css'
 
 import { useCookies } from 'react-cookie';
+import ModalComponent from '../modal/Modal';
+
 export default function NavBar() {
     const [show, setShow] = useState(false);
-    const [cookies] = useCookies(['token']);
+    const [showModal,setShowModal] = useState(false);
+    const handleModal = () => setShowModal(!show);
+    const [{token}] = useCookies(['token']);
+
     useEffect(() => {
         setShow(true);
-    }, [])
+    }, [token]);
 
     if (!show) {
         return;
     }
     return (
         <Navbar className='nav-wrapper'>
+            <ModalComponent onShow={showModal} onHandleModal={handleModal}/>
             <Container>
                 <Link href='..' className='text-decoration-none'>
                     <Navbar.Brand>
@@ -32,12 +38,12 @@ export default function NavBar() {
                 </Link>
                 <Nav className="ms-auto justify-content-center align-items-center">
                     <Link href='/cart'>
-                        <Button className='signup-btn'>
+                        <Button className='signup-btn me-2'>
                             <span className='me-1 '>0</span><AiOutlineShoppingCart />
                         </Button>
                     </Link>
                     {
-                        !cookies.token ? (
+                        !token ? (
                             <Link href="/login">
                                 <Button className='login-btn'>
                                     Login
@@ -50,12 +56,12 @@ export default function NavBar() {
                                         <Image src={profile} alt={'profile picture'} className='profile' />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item>
-                                            <Link className='text-decoration-none' href="/profile">
+                                        {/* <Dropdown.Item> */}
+                                            <Link className='ps-3 text-decoration-none' href="/profile">
                                                 Profile
                                             </Link>
-                                        </Dropdown.Item>
-                                        <Dropdown.Item>
+                                        {/* </Dropdown.Item> */}
+                                        <Dropdown.Item onClick={() => setShowModal(true)}>
                                             Logout
                                         </Dropdown.Item>
                                     </Dropdown.Menu>

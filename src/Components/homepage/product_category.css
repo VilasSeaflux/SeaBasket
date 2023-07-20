@@ -14,3 +14,9 @@
     object-fit: contain;
     height: 20vh;
 }
+
+#productCategory .card{
+    min-height: 30vh !important;
+    cursor: pointer;
+}
+
