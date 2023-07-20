@@ -1,4 +1,4 @@
-import { CATEGORIES, PRODUCT } from '@/Helper/CONSTANTS';
+import { CATEGORIES, PRODUCT,FILTER } from '@/Helper/CONSTANTS';
 import axios from '@/Helper/axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
@@ -16,7 +16,8 @@ export const getProductsData: any = createAsyncThunk("get/Products", async (toke
 })
 const initialState = {
     products: [],
-    categories: []
+    categories: [],
+    category: []
 }
 
 export const getCategories: any = createAsyncThunk("get/categories",async(token) => {
@@ -29,8 +30,19 @@ export const getCategories: any = createAsyncThunk("get/categories",async(token)
     const data = await res.data;
     console.log(data);
     return data.categories;
-}
-)
+});
+
+export const getCategoryProduct: any = createAsyncThunk('get/categoryProducts',async(query:string,token) => {
+    const res = await axios.get(
+        `${FILTER}?category=${query}`,
+        {
+            headers: {Authorization: `bearer ${token}`}
+        }
+    );
+    const data = await res.data;
+    console.log(data);
+    return data;
+})
 
 const productsSlice = createSlice({
     name: "products",
@@ -45,6 +57,9 @@ const productsSlice = createSlice({
             })
             .addCase(getCategories.fulfilled, (state,action) => {
                 state.categories = action.payload;
+            })
+            .addCase(getCategoryProduct.fulfilled, (state,action) => {
+                state.category = action.payload;
             })
     }
 });
