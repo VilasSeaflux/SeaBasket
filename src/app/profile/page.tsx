@@ -1,7 +1,7 @@
 "use client"
 
 import useAuth from "@/Hooks/useAuth";
-import { FC, FormEvent, SyntheticEvent, useEffect, useState } from "react";
+import { FC,useEffect, useState } from "react";
 import './profile.css'
 import { useForm } from "react-hook-form";
 import { Button, Col, Row } from "react-bootstrap";
@@ -20,8 +20,8 @@ const Profile: FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { isAuth, token }: any = useAuth();
     const dispatch = useDispatch();
-    console.log(token, isAuth);
-    console.log(profileData);
+    // console.log(token, isAuth);
+    // console.log(profileData);
     const onSubmit = (data: {}) => {
         console.log(data);
         dispatch(updateProfile(data));

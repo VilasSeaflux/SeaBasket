@@ -38,7 +38,7 @@ export default function NavBar() {
                 </Link>
                 <Nav className="ms-auto justify-content-center align-items-center">
                     <Link href='/cart'>
-                        <Button className='signup-btn'>
+                        <Button className='signup-btn me-2'>
                             <span className='me-1 '>0</span><AiOutlineShoppingCart />
                         </Button>
                     </Link>
