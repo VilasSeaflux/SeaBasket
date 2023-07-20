@@ -3,6 +3,7 @@
 #productCategory h1 {
     color: var(--primary-green);
     font-weight: 700;
+    text-transform: capitalize;
 }
 
 #productCategory h6:hover{

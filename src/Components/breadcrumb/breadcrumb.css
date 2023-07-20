@@ -1,0 +1,14 @@
+@import '../../app/globals.css';
+
+#breadcrumb{
+    background-color: white;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+}
+.active{
+    color: var(--primary-green) !important;
+}
+#breadcrumb .item a{
+    text-decoration: none !important; 
+    color: black;
+}

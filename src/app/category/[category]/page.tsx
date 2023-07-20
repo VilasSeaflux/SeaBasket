@@ -9,6 +9,7 @@ import { useParams } from 'next/navigation';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryProduct, getProductsData } from '@/Redux/Features/productSlice';
+import BreadCrumb from '@/Components/breadcrumb/BreadCrumb';
 
 const ProductCategory: FC = () => {
     const [showCanvas, setShowCanvas] = useState(false);
@@ -31,14 +32,17 @@ const ProductCategory: FC = () => {
     }
     return (
         <section className="bg-light container pb-5" id="productCategory">
-            <div className="container d-flex justify-content-between align-items-center">
-                <h1><span>Product</span> Category</h1>
+            <div className="container d-flex justify-content-between align-items-center py-3">
+                <h1><span>Product </span> {decodedURL}</h1>
                 <h6 onClick={handleShow as any}>Filters</h6>
+            </div>
+            <div className='container-fluid mb-3'>
+                <BreadCrumb name={decodedURL} />
             </div>
             <div className='container'>
                 {
                     productsData.map((item: any) => (
-                        <ProductCard productData={item} key={item.index}/>
+                        <ProductCard productData={item} key={item.index} />
                     ))
                 }
             </div>
