@@ -7,18 +7,21 @@ import useAuth from "@/Hooks/useAuth";
 import Loading from "@/app/loading";
 import axios from "@/Helper/axios";
 import { PRODUCT } from "@/Helper/CONSTANTS";
+import { Badge, Col, Row } from "react-bootstrap";
+import Star from "@/Components/star/Star";
+import Rupee from "@/Helper/priceFormat";
 
 const ProductPage: FC = () => {
-    const [product,setProduct] = useState();
+    const [product, setProduct] = useState();
     const { category, id } = useParams();
     const decodedURL = decodeURI(category);
-    const {isAuth,token} = useAuth();
+    const { isAuth, token } = useAuth();
 
     const getProduct = async () => {
         const res = await axios.get(
             `${PRODUCT}/${id}`,
             {
-                headers: {Authorization : `bearer ${token}`}
+                headers: { Authorization: `bearer ${token}` }
             }
         )
         const data = await res.data;
@@ -28,7 +31,7 @@ const ProductPage: FC = () => {
     console.log(product);
     useEffect(() => {
         getProduct();
-    },[token]);
+    }, [token]);
     if (!isAuth) {
         return <Loading />
     }
@@ -38,8 +41,35 @@ const ProductPage: FC = () => {
                 <h1><span>Buy </span> Now</h1>
             </div>
             <div className='container-fluid mb-3'>
-                <BreadCrumb name={decodedURL} endpoint={product?.name}/>
+                <BreadCrumb name={decodedURL} endpoint={product?.name} />
             </div>
+            <div className="container-fluid">
+                <Row className="">
+                    <Col sm={4} className="my-auto">
+                        <img src={product?.imageUrl} alt={product?.name} className="img-fluid img-thumbnail" />
+                    </Col>
+                    <Col sm={8} className="my-5">
+                        <div>
+                            <p className="h3">{product?.name}</p>
+                        </div>
+                        <div className="mt-2">
+                            <Star rating={product?.avgRating} />
+                        </div>
+                        {
+                            product?.avgRating > 4 ? (
+                                <div className="mt-2">
+                                    <Badge className="bg-danger px-3 py-2">Best Seller</Badge>
+                                </div>
+                            ): ''
+                        }
+                        <div className="mt-3">
+                            <h4>{Rupee.format(product?.price)}</h4>
+                        </div>
+
+                    </Col>
+                </Row>
+            </div>
+
         </section>
     );
 }
