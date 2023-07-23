@@ -1,8 +1,8 @@
 "use client"
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { Col } from "react-bootstrap";
+import Image from "next/image";
 import laptop from '../../../public/images/cat_laptop.jpg';
 
 const CategoryCard: FC = (props:any) => {

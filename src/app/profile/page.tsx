@@ -1,14 +1,11 @@
 "use client"
-
-import useAuth from "@/Hooks/useAuth";
-import { FC,useEffect, useState } from "react";
-import './profile.css'
 import { useForm } from "react-hook-form";
+import { FC,useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserData, updateProfile } from "@/Redux/Features/userSlice";
-import Loading from "../loading";
-
+import useAuth from "@/Hooks/useAuth";
+import './profile.css'
 
 const Profile: FC = () => {
     const profile = useSelector((state: any) => state.user.profile);
@@ -45,9 +42,7 @@ const Profile: FC = () => {
             }
         );
     }
-    if (!isAuth) {
-        return <Loading />
-    }
+
     return (
         <section id="profile" className="container bg-light py-3">
             

@@ -10,10 +10,12 @@ import './navbar.css'
 
 import { useCookies } from 'react-cookie';
 import ModalComponent from '../modal/Modal';
+import { useSelector } from 'react-redux';
 
 export default function NavBar() {
     const [show, setShow] = useState(false);
     const [showModal,setShowModal] = useState(false);
+    const {cart} = useSelector((state:any) => state?.cart);
     const handleModal = () => setShowModal(!show);
     const [{token}] = useCookies(['token']);
 
@@ -39,7 +41,7 @@ export default function NavBar() {
                 <Nav className="ms-auto justify-content-center align-items-center">
                     <Link href='/cart'>
                         <Button className='signup-btn me-2'>
-                            <span className='me-1 '>0</span><AiOutlineShoppingCart />
+                            <span className='me-1 '>{cart?.length}</span><AiOutlineShoppingCart />
                         </Button>
                     </Link>
                     {

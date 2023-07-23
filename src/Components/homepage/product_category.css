@@ -1,12 +1,12 @@
 @import '../../app/globals.css';
 
-#productCategory h2{
+#productCategory .header{
     font-size: 2.5rem !important;
     font-weight: 700;
     color: var(--text);
 }
 
-#productCategory span{
+#productCategory .secondary{
     color: var(--primary-green);
 }
 #productCategory .category{

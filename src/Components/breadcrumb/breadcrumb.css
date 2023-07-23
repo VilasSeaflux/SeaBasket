@@ -5,10 +5,13 @@
     border: 1px solid gainsboro;
     border-radius: 5px;
 }
-.active{
+#breadcrumb .active{
     color: var(--primary-green) !important;
 }
 #breadcrumb .item a{
     text-decoration: none !important; 
     color: black !important;
+}
+#breadcrumb ol li{
+    text-transform: capitalize !important;
 }

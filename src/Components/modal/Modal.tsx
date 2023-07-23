@@ -1,10 +1,10 @@
 "use client"
 import { FC} from "react"
 import { Button, Modal } from "react-bootstrap";
-import './modal.css';
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import wait from "@/Helper/wait";
+import './modal.css';
 
 const ModalComponent: FC = ({onShow,onHandleModal}:any) => {
     const router = useRouter();

@@ -8,14 +8,10 @@ const useAuth = () => {
     const cookies = new Cookies();
     const token = cookies.get('token');
 
-    useEffect(() => {
-        (async () => {
-            if(!token){
-                return router.push('/login'); 
-            }
-        })();
-        
-        setIsAuth(true);
+    useEffect(() => {        
+        if(token){
+            setIsAuth(true)
+        }
     },[router,token]);
     return {token,isAuth};
 }

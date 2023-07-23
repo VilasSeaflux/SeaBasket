@@ -1,6 +1,6 @@
 'use client'
 import { FC, useEffect, useState } from 'react';
-import '../page.css'
+import { SIGN_UP } from '@/Helper/CONSTANTS';
 import { Button, Toast } from "react-bootstrap";
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
@@ -8,10 +8,8 @@ import Link from 'next/link';
 import axios from '@/Helper/axios';
 import wait from '@/Helper/wait';
 import useAuth from '@/Hooks/useAuth';
-import { SIGN_UP } from '@/Helper/CONSTANTS';
 
-
-
+import '../page.css'
 
 //types
 interface User {
@@ -20,7 +18,6 @@ interface User {
     "phoneNo": number,
     "password": string,
 }
-
 
 const SignUp: FC = () => {
     // const [userData, setUserData] = useState<User>();
@@ -73,14 +70,6 @@ const SignUp: FC = () => {
         // console.log(userData);
         reset();
         signUp(data);
-    }
-    useEffect(() => {
-        if(token){
-            router.push('/profile');
-        }
-    });
-    if(!isAuth){
-        return <p>Loading....</p>;
     }
     
     return (

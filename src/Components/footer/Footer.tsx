@@ -1,10 +1,11 @@
 'use client'
 import { Col, Row } from 'react-bootstrap';
-import './footer.css';
-import Image from 'next/image';
-import logo from '../../../public/images/logo.png'
 import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import logo from '../../../public/images/logo.png'
+import './footer.css';
+
 const Footer = () => {
     const [show,setShow] = useState(false);
     useEffect(() => {

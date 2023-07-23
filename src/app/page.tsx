@@ -1,29 +1,33 @@
-// import styles from './page.module.css'
 'use client'
 
-import CarouselComp from "@/Components/homepage/Carousel"
-import ProductCategory from "@/Components/homepage/ProductCategory"
+import { useDispatch, useSelector } from "react-redux"
+import { getProductsData } from "@/Redux/Features/productSlice"
 import { useEffect, useState } from "react"
 import { CookiesProvider } from "react-cookie"
-import Loading from "./loading"
-import { useDispatch } from "react-redux"
-import useAuth from "@/Hooks/useAuth"
-import { getProductsData } from "@/Redux/Features/productSlice"
 
-export default function Home() {
-  const [show, setShow] = useState(false);
-  const {token} = useAuth();
+import ProductCategory from "@/Components/homepage/ProductCategory"
+import CarouselComp from "@/Components/homepage/Carousel"
+import useAuth from "@/Hooks/useAuth"
+import Loading from "./loading"
+
+const Home = () => {
+  const [loader, setLoader] = useState(false);
+  const { token } = useAuth();
   const dispatch = useDispatch();
   useEffect(() => {
-    setShow(true);
+    setLoader(true);
     dispatch(getProductsData(token));
-  }, [])
 
-  if (!show) {
-    return <Loading />;
+    return () => {
+      setLoader(false);
+    }
+  }, [token, dispatch])
+
+  if(!loader){
+    return <Loading />
   }
   return (
-    <CookiesProvider>
+    <CookiesProvider>/
       <main className="container">
         <section className="container bg-light">
           <CarouselComp />
@@ -33,5 +37,7 @@ export default function Home() {
         </section>
       </main>
     </CookiesProvider>
-  )
+  );
 }
+
+export default Home;

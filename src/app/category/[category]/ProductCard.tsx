@@ -1,12 +1,13 @@
 "use client"
-import Rupee from "@/Helper/priceFormat";
-import Link from "next/link";
 import { Badge, Col, Row } from "react-bootstrap";
 import { AiFillStar } from 'react-icons/ai'
 
+import Rupee from "@/Helper/priceFormat";
+import Link from "next/link";
+
 export default function ProductCard({ productData, url}: { productData: any,url:string }) {
     return (
-        <div className='card'>
+        <div className='card mb-3'>
             <div className='card-body'>
                 <Row className='align-items-center justify-content-center'>
                     <Col sm={3} className="text-center">

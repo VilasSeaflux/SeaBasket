@@ -1,13 +1,14 @@
 import { BiSolidStar, BiSolidStarHalf } from "react-icons/bi";
 
 export default function Star({rating}:{rating:number}){
+    // console.log(rating)
     const isInt = Number.isInteger(rating);
-    const toRound = parseInt(rating);
-    console.log(isInt);
+    const toRound = Math.floor(rating);
+    // console.log(isInt);
     return(
         <div>
             {
-                [...Array(toRound)].map((num,index) => (
+                [toRound].map((num,index) => (
                     <BiSolidStar key={index} fill="#FFBF00" className="h4"/>
                 ))
             }
