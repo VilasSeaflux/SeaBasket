@@ -1,10 +1,22 @@
 @import '../../../../globals.css';
 
-#productPage h1 {
+#productPage .header .secondary{
+    color: var(--text) !important;
+}
+#productPage .header {
     color: var(--primary-green);
     font-weight: 700;
     text-transform: capitalize;   
 }
-#productPage h1 span,h6 {
-    color: var(--text) !important;
+
+#productPage .primary-btn{
+    background-color: var(--primary-green) !important;
+    border: 1px solid var(--primary-green);
+}
+
+
+#productPage .secondary-btn{
+    background-color: white !important;
+    border: 1px solid var(--primary-green) !important;
+    color: var(--text);
 }

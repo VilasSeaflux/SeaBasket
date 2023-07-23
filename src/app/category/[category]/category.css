@@ -1,15 +1,15 @@
 @import '../../globals.css';
 
-#productCategory h1 {
+#productCategory .header {
     color: var(--primary-green);
     font-weight: 700;
     text-transform: capitalize;
 }
 
-#productCategory h6:hover{
+#productCategory .header-6:hover{
     color: var(--primary-green) !important;
 }
-#productCategory h1 span,h6 {
+#productCategory .header .secondary,.header-6 {
     color: var(--text) !important;
 }
 #productCategory img{

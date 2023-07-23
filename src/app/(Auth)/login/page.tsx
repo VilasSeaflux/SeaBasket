@@ -1,16 +1,15 @@
 'use client'
-import axios from '@/Helper/axios';
-import '../page.css'
+import { useEffect, useState } from 'react';
+import { LOGIN } from '@/Helper/CONSTANTS';
 import { Button, Toast } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
+import axios from '@/Helper/axios';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import wait from '@/Helper/wait';
 import useAuth from '@/Hooks/useAuth';
-import { LOGIN } from '@/Helper/CONSTANTS';
-import Loading from '@/app/loading';
 
+import '../page.css'
 
 
 interface User {
@@ -43,9 +42,9 @@ const Login = () => {
                 LOGIN,
                 JSON.stringify(loginData),
             );
-            console.log(res);
+            // console.log(res);
             const token = await res?.data?.verificationtoken;
-            console.log(token);
+            // console.log(token);
             handleRedirect();
             await wait(2000);
             reset();
@@ -58,14 +57,6 @@ const Login = () => {
     const onSubmit: any = (data: User) => {
         console.log(data);
         login(data);
-    }
-    useEffect(() => {
-        if(token){
-            router.push('/profile');
-        }
-    },[token,router]);
-    if(!isAuth){
-        return <Loading />;
     }
     
     return (

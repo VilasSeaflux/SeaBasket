@@ -1,5 +1,4 @@
 "use client"
-// import NavBar from '../Components/NavBar'
 import Footer from '@/Components/footer/Footer';
 import NavBar from '@/Components/navbar/NavBar';
 import RTKProvider from '@/Redux/Provider';

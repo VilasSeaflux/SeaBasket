@@ -2,14 +2,15 @@
 import { FC, useEffect, useState } from "react";
 import { Button, Toast } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import '../../page.css'
 import { useParams, useRouter } from "next/navigation";
-import axios from "@/Helper/axios";
-import wait from "@/Helper/wait";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
-import { setIsAuth } from "@/Redux/Features/Auth";
+import { setIsAuth } from "@/Redux/Features/authSlice";
 
+import wait from "@/Helper/wait";
+import axios from "@/Helper/axios";
+
+import '../../page.css'
 
 interface otp {
     OTP: string;
@@ -65,16 +66,6 @@ const Verification: FC = () => {
         console.log(data);
         verifyUser(data);
     }
-    // useEffect(() => {
-    //     if(token){
-    //         router.push('/profile');
-    //         return;
-    //     }
-    // });
-    // if(!isAuth){
-    //     return <p>Loading....</p>;
-    // }
-    
 
     return (
         <section className="container d-flex flex-column justify-content-center align-items-center auth-container">
