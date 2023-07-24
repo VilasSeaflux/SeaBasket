@@ -1,13 +1,20 @@
 "use client"
-import { Badge, Col, Row } from "react-bootstrap";
+import { Badge, Button, Col, Row } from "react-bootstrap";
 import { AiFillStar } from 'react-icons/ai'
 
 import Rupee from "@/Helper/priceFormat";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/Redux/Features/cartSlice";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function ProductCard({ productData, url}: { productData: any,url:string }) {
+    const dispatch = useDispatch();
+    
     return (
         <div className='card mb-3'>
+            <ToastContainer autoClose={2000} />
             <div className='card-body'>
                 <Row className='align-items-center justify-content-center'>
                     <Col sm={3} className="text-center">
@@ -33,6 +40,11 @@ export default function ProductCard({ productData, url}: { productData: any,url:
                                     Rupee.format(productData.price)
                                 }
                             </h5>
+                            <div>
+                                <Button className="primary-btn me-2" onClick={() =>dispatch(addToCart(productData))}>Add to Cart</Button>
+                                <Button className="secondary-btn">Buy Now</Button>
+                            </div>
+
                         </div>
                     </Col>
                 </Row>

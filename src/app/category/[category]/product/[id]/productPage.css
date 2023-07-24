@@ -8,15 +8,3 @@
     font-weight: 700;
     text-transform: capitalize;   
 }
-
-#productPage .primary-btn{
-    background-color: var(--primary-green) !important;
-    border: 1px solid var(--primary-green);
-}
-
-
-#productPage .secondary-btn{
-    background-color: white !important;
-    border: 1px solid var(--primary-green) !important;
-    color: var(--text);
-}

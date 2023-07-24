@@ -3,6 +3,25 @@
     --text: #4b2767;
 }
 
+.primary-btn {
+    background-color: var(--primary-green) !important;
+    border: 1px solid var(--primary-green);
+    color: white;
+}
+
+.secondary-btn {
+    background-color: white !important;
+    border: 1px solid var(--primary-green) !important;
+    color: var(--text);
+}
+.primary-btn:hover{
+    border: 1px solid var(--primary-green) !important;
+    color: white;
+}
+.secondary-btn:hover{
+    color: var(--text);
+}
+
 @keyframes fade {
     0% {
         opacity: 0.4;

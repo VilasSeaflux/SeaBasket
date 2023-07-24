@@ -1,16 +1,16 @@
 'use client'
-import { useEffect, useState } from 'react';
 import { LOGIN } from '@/Helper/CONSTANTS';
-import { Button, Toast } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+
 import axios from '@/Helper/axios';
 import Link from 'next/link';
 import wait from '@/Helper/wait';
-import useAuth from '@/Hooks/useAuth';
 
 import '../page.css'
-
+import "react-toastify/dist/ReactToastify.css";
 
 interface User {
     "emailOrPhoneNo": string | number;
@@ -18,40 +18,23 @@ interface User {
 }
 
 const Login = () => {
-    const [redirectPage, setRedirectPage] = useState(false);
-    const [errorToast,setErrorToast] = useState({
-        show: false,
-        errorMessage: '',
-    });
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter();
-    const {token,isAuth} = useAuth();
 
-    const handleRedirect = () => {
-        setRedirectPage(!redirectPage);
-    }
-    const handleError = (msg : string) => {
-        setErrorToast({
-            show: !errorToast.show,
-            errorMessage: msg
-        });
-    }
     const login = async (loginData: User) => {
         try {
             const res = await axios.post(
                 LOGIN,
                 JSON.stringify(loginData),
             );
-            // console.log(res);
             const token = await res?.data?.verificationtoken;
-            // console.log(token);
-            handleRedirect();
+            toast.success("Redirecting to Verification page....");
             await wait(2000);
             reset();
             router.push(`login/${token}`);
         } catch (error:any) {
             console.log(error);
-            handleError(error?.response?.data?.message);
+            toast.warn(error?.response?.data?.message);
         }
     }
     const onSubmit: any = (data: User) => {
@@ -61,26 +44,7 @@ const Login = () => {
     
     return (
         <section className="container d-flex flex-column justify-content-center align-items-center auth-container">
-            <Toast
-                show={redirectPage}
-                onClose={handleRedirect}
-                animation={true}
-                autohide={true}
-                className='position-absolute toast'>
-                <Toast.Body className='toast-success-body'>
-                    Redirecting To verification page
-                </Toast.Body>
-            </Toast>
-            <Toast
-                show={errorToast.show}
-                onClose={() => handleError('')}
-                animation={true}
-                autohide={true}
-                className='position-absolute toast'>
-                <Toast.Body className='toast-error-body'>
-                    {errorToast.errorMessage}
-                </Toast.Body>
-            </Toast>
+            <ToastContainer autoClose={2000}/>
             <h2 className="mt-3 "><span>Login To</span> SeaBasket</h2>
             <div className="w-sm-75 p-5 mt-3 form-div">
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -113,7 +77,7 @@ const Login = () => {
                         }
                     </div>
                     <div>
-                        <p>New to SeaBasket?<Link className='text-decoration-none' href="/sign-up">Create Account</Link></p>
+                        <p>New to SeaBasket?<Link className='text-decoration-none' href="/sign-up"> Create Account</Link></p>
                     </div>
                     <Button type="submit" className="continue-btn mt-2 float-end">Continue</Button>
                 </form>

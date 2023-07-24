@@ -1,8 +1,11 @@
 "use client"
 import { FC, useEffect, useState } from "react";
-import { Badge, Button, Col, Collapse, Row } from "react-bootstrap";
+import { Badge, Button, Col, Row } from "react-bootstrap";
 import { useParams } from "next/navigation";
 import { PRODUCT } from "@/Helper/CONSTANTS";
+import { ToastContainer } from "react-toastify";
+import { addToCart } from "@/Redux/Features/cartSlice";
+import { useDispatch } from "react-redux";
 
 import BreadCrumb from "@/Components/breadcrumb/BreadCrumb";
 import useAuth from "@/Hooks/useAuth";
@@ -12,13 +15,14 @@ import Rupee from "@/Helper/priceFormat";
 import Loading from "@/app/loading";
 
 import './productPage.css';
-import { addToCart } from "@/Redux/Features/cartSlice";
-import { useDispatch } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
 
 
 const ProductPage: FC = () => {
     const [product, setProduct] = useState<any>();
-    const [loader,setLoader] = useState(false);
+    const [loader, setLoader] = useState(false);
+    const [quantity,setQuantity] = useState(1);
     const dispatch = useDispatch();
     const { category, id } = useParams();
     const decodedURL = decodeURI(category);
@@ -45,12 +49,13 @@ const ProductPage: FC = () => {
         }
     }, []);
 
-    if(!loader){
+    if (!loader) {
         return <Loading />
     }
 
     return (
         <section id="productPage" className="bg-light container pb-5">
+            <ToastContainer autoClose={2000} />
             <div className="container d-flex justify-content-between align-items-center py-3">
                 <h1 className="header"><span className="secondary">Buy </span> Now</h1>
             </div>
@@ -74,7 +79,7 @@ const ProductPage: FC = () => {
                                 <div className="mt-2">
                                     <Badge className="bg-danger px-3 py-2">Best Seller</Badge>
                                 </div>
-                            ): ''
+                            ) : ''
                         }
                         <div className="mt-3">
                             <h4>{Rupee.format(product?.price)}</h4>
@@ -92,8 +97,16 @@ const ProductPage: FC = () => {
                             </p>
 
                         </div> */}
+                        <label htmlFor="qty">Quantity</label>
+                        <input 
+                            id="qty"
+                            type="number" 
+                            className="form-control d-inline w-25 ms-1"
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.valueAsNumber)}
+                            />
                         <div className="mt-3">
-                            <Button className="primary-btn me-2" onClick={() => dispatch(addToCart(product))}>Add to Cart</Button>
+                            <Button className="primary-btn me-2" onClick={() => dispatch(addToCart({...product,quantity}))}>Add to Cart</Button>
                             <Button className="secondary-btn">Buy Now</Button>
                         </div>
                     </Col>

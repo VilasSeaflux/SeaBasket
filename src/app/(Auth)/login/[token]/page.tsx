@@ -1,41 +1,27 @@
 'use client'
-import { FC, useEffect, useState } from "react";
-import { Button, Toast } from "react-bootstrap";
+import { FC } from "react";
+import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { setIsAuth } from "@/Redux/Features/authSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 import wait from "@/Helper/wait";
 import axios from "@/Helper/axios";
 
 import '../../page.css'
-
+import "react-toastify/dist/ReactToastify.css";
 interface otp {
     OTP: string;
 }
 
 const Verification: FC = () => {
-    const [redirectPage, setRedirectPage] = useState(false);
-    const [errorToast, setErrorToast] = useState({
-        show: false,
-        errorMessage: '',
-    });
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [cookies,setCookies] = useCookies(['token']);
     const dispatch = useDispatch(); 
-    // const {token,isAuth} = useAuth();
 
-    const handleError = (msg: string) => {
-        setErrorToast({
-            show: !errorToast.show,
-            errorMessage: msg
-        });
-    }
-    const handleRedirect = () => {
-        setRedirectPage(!redirectPage);
-    }
     const routeToken = useParams();
     const router = useRouter();
     console.log(routeToken);
@@ -47,18 +33,16 @@ const Verification: FC = () => {
                 JSON.stringify(otp),
             );
             console.log(res);
-            // const data = await res.data;
             const token = await res?.data?.authToken;
-            // console.log({data,token})
+            toast.success("User Verified, Redirecting to Profile....");
             setCookies('token',token);
             dispatch(setIsAuth());
-            handleRedirect();
             await wait(2000);
             router.push('/profile')
         }
         catch (error:any) {
             console.log(error);
-            handleError(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message);
         }
     }
 
@@ -69,26 +53,7 @@ const Verification: FC = () => {
 
     return (
         <section className="container d-flex flex-column justify-content-center align-items-center auth-container">
-            <Toast
-                show={redirectPage}
-                onClose={handleRedirect}
-                animation={true}
-                autohide={true}
-                className='position-absolute toast'>
-                <Toast.Body className='toast-success-body'>
-                    User Varified, Redirecting to Profile...
-                </Toast.Body>
-            </Toast>
-            <Toast
-                show={errorToast.show}
-                onClose={() => handleError('')}
-                animation={true}
-                autohide={true}
-                className='position-absolute toast'>
-                <Toast.Body className='toast-error-body'>
-                    {errorToast.errorMessage}
-                </Toast.Body>
-            </Toast>
+            <ToastContainer autoClose={2000} />
             <h2 className="mt-3 "><span>Sign Up To</span> SeaBasket</h2>
             <div className="w-sm-75 p-5 mt-3 form-div">
                 <form onSubmit={handleSubmit(onSubmit)}>

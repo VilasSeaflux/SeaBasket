@@ -10,9 +10,11 @@ import ProductCard from './ProductCard';
 import BreadCrumb from '@/Components/breadcrumb/BreadCrumb';
 
 import './category.css';
+import Loading from '@/app/loading';
 
 
 const ProductCategory: FC = () => {
+    const [laoder,setLoader] = useState(false);
     const [showCanvas, setShowCanvas] = useState(false);
     const dispatch = useDispatch();
     const productsData = useSelector((state:any) => state?.product?.categoryProduct);
@@ -22,10 +24,17 @@ const ProductCategory: FC = () => {
     const decodedURL = decodeURI(category);
 
     useEffect(() => {
-        // getCategoryProduct();
+        setLoader(true);
         dispatch(getCategoryProduct(decodedURL, token));
+
+        return () => {
+            setLoader(false);
+        }
     }, [])
 
+    if(!laoder){
+        return <Loading />
+    }
     return (
         <section className="bg-light container pb-5" id="productCategory">
             <div className="container d-flex justify-content-between align-items-center py-3">
