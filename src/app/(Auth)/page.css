@@ -34,22 +34,3 @@ label{
     border: 1px solid var(--primary-green) !important;
 }
 
-.toast{
-    top: 15vh;
-    right: 20px;
-    border-radius: 10px;
-}
-
-.toast-success-body{
- background-color: var(--primary-green);
- color: var(--text);
- font-size: 1rem;
- border-radius: 10px;
-}
-
-.toast-error-body{
-    background-color: rgb(238, 88, 88);
-    color: var(--text);
-    font-size: 1rem;
-    border-radius: 10px;
-}

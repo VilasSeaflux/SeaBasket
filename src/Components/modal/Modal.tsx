@@ -10,7 +10,7 @@ const ModalComponent: FC = ({onShow,onHandleModal}:any) => {
     const router = useRouter();
     const handleLogout =async () => {
         try{
-           const res = await axios.get('api/logout');
+           const res = await axios.get('http://127.0.0.1:3000/api/logout');
            onHandleModal();
            wait(1000);
            console.log(res);

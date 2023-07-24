@@ -4,11 +4,13 @@ import { SIGN_UP } from '@/Helper/CONSTANTS';
 import { Button, Toast } from "react-bootstrap";
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+
 import Link from 'next/link';
 import axios from '@/Helper/axios';
 import wait from '@/Helper/wait';
-import useAuth from '@/Hooks/useAuth';
 
+import "react-toastify/dist/ReactToastify.css";
 import '../page.css'
 
 //types
@@ -20,12 +22,6 @@ interface User {
 }
 
 const SignUp: FC = () => {
-    // const [userData, setUserData] = useState<User>();
-    const [successToast, setSuccessToast] = useState(false);
-    const [errorToast,setErrorToast] = useState({
-        show: false,
-        errorMessage: '',
-    });
     const {
         register,
         handleSubmit,
@@ -33,17 +29,6 @@ const SignUp: FC = () => {
         reset,
     } = useForm();
     const router = useRouter();
-    const {token,isAuth} = useAuth();
-
-    const handleSuccess = () => {
-        setSuccessToast(!successToast);
-    }
-    const handleError = (msg : string) => {
-        setErrorToast({
-            show: !errorToast.show,
-            errorMessage: msg
-        });
-    }
     const signUp = async (userInputData: User) => {
         try {
             const res = await axios.post(
@@ -51,16 +36,13 @@ const SignUp: FC = () => {
                 JSON.stringify(userInputData),
             );
             console.log(res)
-            // const data = await res.data;
-            handleSuccess();
-            // console.log(data);
+            toast.success("User Created Successfully....")
             await wait(2000);
             router.push('/login');
         } catch (error:any) {
-            // alert(error?.message?.msg)
             console.log(error);
+            toast.error(error?.response?.data?.message?.msg);
             console.log(error?.response?.data?.message?.msg);
-            handleError(error?.response?.data?.message?.msg);
         }
     }
 
@@ -74,27 +56,7 @@ const SignUp: FC = () => {
     
     return (
         <section className="container d-flex flex-column justify-content-center align-items-center auth-container">
-            <Toast
-                show={successToast}
-                onClose={handleSuccess}
-                animation={true}
-                autohide={true}
-                className='position-absolute toast'>
-                <Toast.Body className='toast-success-body'>
-                    User Created Successfully!!
-                    Redirecting to login page...
-                </Toast.Body>
-            </Toast>
-            <Toast
-                show={errorToast.show}
-                onClose={() => handleError('')}
-                animation={true}
-                autohide={true}
-                className='position-absolute toast'>
-                <Toast.Body className='toast-error-body'>
-                    {errorToast.errorMessage}
-                </Toast.Body>
-            </Toast>
+            <ToastContainer autoClose={1000} />
             <h2 className="mt-3 "><span>Sign Up To</span> SeaBasket</h2>
             <div className="w-sm-75 p-5 mt-3 form-div">
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -140,7 +102,7 @@ const SignUp: FC = () => {
                         }
                     </div>
                     <div className='mt-3'>
-                        <p>already Have an account? <Link className='text-decoration-none' href="/login">Login</Link></p>
+                        <p>already Have an account? <Link className='text-decoration-none' href="/login"> Login</Link></p>
                     </div>
                     <Button type='submit' className="continue-btn mt-2 float-end">Continue</Button>
                 </form>

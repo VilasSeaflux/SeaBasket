@@ -8,7 +8,7 @@ export default function Star({rating}:{rating:number}){
     return(
         <div>
             {
-                [toRound].map((num,index) => (
+                [...Array(toRound)].map((num,index) => (
                     <BiSolidStar key={index} fill="#FFBF00" className="h4"/>
                 ))
             }
