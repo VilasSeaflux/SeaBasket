@@ -5,8 +5,8 @@ import { useParams } from "next/navigation";
 import { PRODUCT } from "@/Helper/CONSTANTS";
 import { ToastContainer } from "react-toastify";
 import { addToCart } from "@/Redux/Features/cartSlice";
-import { useDispatch } from "react-redux";
-import {Rating} from '@smastrom/react-rating';
+import { useDispatch, useSelector } from "react-redux";
+import { Rating } from '@smastrom/react-rating';
 
 import BreadCrumb from "@/Components/breadcrumb/BreadCrumb";
 import useAuth from "@/Hooks/useAuth";
@@ -17,12 +17,15 @@ import Loading from "@/app/loading";
 import './productPage.css';
 import "react-toastify/dist/ReactToastify.css";
 import '@smastrom/react-rating/style.css'
+import { Controller, useForm } from "react-hook-form";
 
 
 const ProductPage: FC = () => {
     const [product, setProduct] = useState<any>();
     const [loader, setLoader] = useState(false);
-    const [quantity,setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(1);
+    const userInfo = useSelector((state: any) => state.user.profile);
+    const { handleSubmit, register,control } = useForm();
     const dispatch = useDispatch();
     const { category, id } = useParams();
     const decodedURL = decodeURI(category);
@@ -49,6 +52,19 @@ const ProductPage: FC = () => {
         }
     }, []);
 
+    const handleReview = (data: any) => {
+        // e.preventDefault();
+        const review = {
+                id: product.id,
+                username: userInfo?.name,
+                review: data.review,
+                rating: data.rating,
+            };
+        product?.reviews?.push(review);
+        // console.log(currentProduct);
+        // console.log(data);
+        alert(JSON.stringify(review))
+    }
     if (!loader) {
         return <Loading />
     }
@@ -72,7 +88,7 @@ const ProductPage: FC = () => {
                             <p className="h3">{product?.name}</p>
                         </div>
                         <div className="mt-2 d-flex">
-                            <Rating value={product?.avgRating} readOnly className="rating"/>
+                            <Rating value={product?.avgRating} readOnly className="rating" />
                         </div>
                         {
                             product?.avgRating > 4 ? (
@@ -98,20 +114,81 @@ const ProductPage: FC = () => {
 
                         </div> */}
                         <label htmlFor="qty">Quantity</label>
-                        <input 
+                        <input
                             id="qty"
-                            type="number" 
+                            type="number"
                             className="form-control d-inline w-25 ms-1"
                             value={quantity}
                             onChange={(e) => setQuantity(e.target.valueAsNumber)}
-                            />
+                        />
                         <div className="mt-3">
-                            <Button className="primary-btn me-2" onClick={() => dispatch(addToCart({...product,quantity}))}>Add to Cart</Button>
+                            <Button className="primary-btn me-2" onClick={() => dispatch(addToCart({ ...product, quantity }))}>Add to Cart</Button>
                             <Button className="secondary-btn">Buy Now</Button>
                         </div>
                     </Col>
+                    <div className="container-fluid mt-4">
+                        <h3>Product Desciption</h3>
+                        <p className="ms-1">{product?.description}.</p>
+                    </div>
+                    <div className="container-fluid mt-4">
+                        <h3>Product Details</h3>
+                        <table className="table table-bordered w-50">
+                            <thead className="table-group-divider thead-dark">
+                                <tr className="table-success text-white">
+                                    <th className="w-25">Name</th>
+                                    <th >Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    product ? Object?.entries(product?.productDetail).map(([key, val]: any) => (
+                                        <tr key={key}>
+                                            <td>
+                                                {key}
+                                            </td>
+                                            <td>
+                                                {val}
+                                            </td>
+                                        </tr>
+                                    )) : null
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </Row>
-        
+                <div className="mt-3">
+                    <h3>Add Review</h3>
+                    <div>
+                        <form className="w-md-100 " onSubmit={handleSubmit(handleReview)}>
+                            <Controller
+                                control={control}
+                                name="rating"
+                                rules={{
+                                    validate: (rating) => rating > 0,
+                                }}
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <Rating
+                                        value={value}
+                                        isRequired
+                                        onChange={onChange}
+                                        visibleLabelId="rating_label"
+                                        onBlur={onBlur}
+                                        className="rating mb-3"
+                                    />
+                                )}
+                            />
+                            <textarea
+                                className="form-control"
+                                rows={5}
+                                placeholder="Enter your Review"
+                                {...register('review')} />
+                            <Button className="primary-btn float-end mt-2" type="submit">Submit</Button>
+                        </form>
+                    </div>
+                </div>
+                <div className="my-3">
+                    <h3>Product Reviews</h3>
+                </div>
             </div>
 
         </section>

@@ -5,7 +5,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 const Cart = () => {
-    const { cart } = useSelector((state: any) => state?.cart);
+    const { cart } = useSelector((state: any) => state?.myCart);
     console.log(cart);
     const router = useRouter();
 

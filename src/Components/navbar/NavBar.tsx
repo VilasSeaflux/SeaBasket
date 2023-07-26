@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 export default function NavBar() {
     const [show, setShow] = useState(false);
     const [showModal,setShowModal] = useState(false);
-    const {cart} = useSelector((state:any) => state?.cart);
+    const {cart} = useSelector((state:any) => state?.myCart);
     const handleModal = () => setShowModal(!show);
     const [{token}] = useCookies(['token']);
 
