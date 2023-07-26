@@ -6,17 +6,17 @@ import { PRODUCT } from "@/Helper/CONSTANTS";
 import { ToastContainer } from "react-toastify";
 import { addToCart } from "@/Redux/Features/cartSlice";
 import { useDispatch } from "react-redux";
+import {Rating} from '@smastrom/react-rating';
 
 import BreadCrumb from "@/Components/breadcrumb/BreadCrumb";
 import useAuth from "@/Hooks/useAuth";
 import axios from "@/Helper/axios";
-import Star from "@/Components/star/Star";
 import Rupee from "@/Helper/priceFormat";
 import Loading from "@/app/loading";
 
 import './productPage.css';
 import "react-toastify/dist/ReactToastify.css";
-import { useForm } from "react-hook-form";
+import '@smastrom/react-rating/style.css'
 
 
 const ProductPage: FC = () => {
@@ -72,7 +72,7 @@ const ProductPage: FC = () => {
                             <p className="h3">{product?.name}</p>
                         </div>
                         <div className="mt-2 d-flex">
-                            <span className="me-1 fw-bold">{product?.avgRating}</span><Star rating={product?.avgRating} />
+                            <Rating value={product?.avgRating} readOnly className="rating"/>
                         </div>
                         {
                             product?.avgRating > 4 ? (
@@ -111,6 +111,7 @@ const ProductPage: FC = () => {
                         </div>
                     </Col>
                 </Row>
+        
             </div>
 
         </section>

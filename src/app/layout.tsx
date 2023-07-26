@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Inter } from 'next/font/google'
 import { Suspense } from 'react';
 import Loading from './loading';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistedStore } from '@/Redux/store';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,13 +23,15 @@ export default function RootLayout({
         <title>SeaBasket</title>
       </head>
       <body className={inter.className}>
-        <RTKProvider>
-          <Suspense fallback={<Loading />}>
-            <NavBar />
-            {children}
-            <Footer />
-          </Suspense>
-        </RTKProvider>
+        <PersistGate persistor={persistedStore}>
+          <RTKProvider>
+            <Suspense fallback={<Loading />}>
+              <NavBar />
+              {children}
+              <Footer />
+            </Suspense>
+          </RTKProvider>
+        </PersistGate>
       </body>
     </html>
   )
