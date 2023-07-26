@@ -40,6 +40,9 @@ const cartSlice = createSlice({
         },
         removeFromCart(state,action){
             state.cart = state.cart.filter((product:any) => product.id === action.payload.id);
+        },
+        emptyCart(state){
+            state.cart = [];
         }
     },
     // extraReducers(builder){
@@ -55,4 +58,4 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
-export const {addToCart,removeFromCart} = cartSlice.actions;
+export const {addToCart,removeFromCart,emptyCart} = cartSlice.actions;

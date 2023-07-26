@@ -22,6 +22,10 @@
     color: var(--text);
 }
 
+.rating{
+    width: 15% !important;
+}
+
 @keyframes fade {
     0% {
         opacity: 0.4;
@@ -85,4 +89,9 @@
     background: var(--primary-green);
     margin: 0 6px 0 0;
     animation: oscillate 0.7s ease-in forwards infinite;
+}
+
+/****************CART*******************/
+#cart img{
+    width: 10vw;
 }

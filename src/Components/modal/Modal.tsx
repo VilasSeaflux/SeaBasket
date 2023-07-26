@@ -5,14 +5,18 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import wait from "@/Helper/wait";
 import './modal.css';
+import { useDispatch } from "react-redux";
+import { emptyCart } from "@/Redux/Features/cartSlice";
 
 const ModalComponent: FC = ({onShow,onHandleModal}:any) => {
+    const dispatch = useDispatch();
     const router = useRouter();
     const handleLogout =async () => {
         try{
            const res = await axios.get('http://127.0.0.1:3000/api/logout');
            onHandleModal();
-           wait(1000);
+           await wait(1000);
+           dispatch(emptyCart());
            console.log(res);
            router.push('/login');
         }catch(error:any){
