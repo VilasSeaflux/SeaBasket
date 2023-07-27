@@ -38,7 +38,7 @@ const ProductCategory: FC = () => {
     return (
         <section className="bg-light container pb-5" id="productCategory">
             <div className="container d-flex justify-content-between align-items-center py-3">
-                <h1 className='header'><span className='secndory'>Product </span> {decodedURL}</h1>
+                <h1 className='header'><span className='secondary'>Product </span> {decodedURL}</h1>
                 <h6 className='header-6' onClick={handleShow as any}>Filters</h6>
             </div>
             <div className='container-fluid mb-3'>

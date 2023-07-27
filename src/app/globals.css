@@ -94,4 +94,6 @@
 /****************CART*******************/
 #cart img{
     width: 10vw;
+    max-height: 20vh;
+    object-fit: contain;
 }

@@ -47,7 +47,7 @@ const Profile: FC = () => {
         <section id="profile" className="container bg-light py-3">
             
             <div>
-                <h1 className="text-center"><span>User</span> Profile</h1>
+                <h1 className="text-center header"><span className="secondary">User</span> Profile</h1>
             </div>
             <div className="mt-2">
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -165,7 +165,7 @@ const Profile: FC = () => {
                         </Col> */}
                     </Row>
                     <div>
-                        <Button type="submit" className="update-btn">Update</Button>
+                        <Button type="submit" className="primary-btn">Update</Button>
                     </div>
                 </form>
             </div>
