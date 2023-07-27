@@ -8,6 +8,7 @@ import './modal.css';
 import { useDispatch } from "react-redux";
 import { emptyCart } from "@/Redux/Features/cartSlice";
 import { removeIsAuth } from "@/Redux/Features/authSlice";
+import { clearUser } from "@/Redux/Features/userSlice";
 
 const ModalComponent: FC = ({ onShow, onHandleModal }: any) => {
     const dispatch = useDispatch();
@@ -18,10 +19,11 @@ const ModalComponent: FC = ({ onShow, onHandleModal }: any) => {
             const data = await res.data;
             if (data.success) {
                 onHandleModal();
-                localStorage.removeItem('token');
                 await wait(1000);
                 dispatch(emptyCart());
                 dispatch(removeIsAuth());
+                dispatch(clearUser());
+                localStorage.removeItem('token');
                 console.log(res);
                 router.push('/login');
             }

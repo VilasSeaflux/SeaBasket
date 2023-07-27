@@ -25,6 +25,9 @@
 .rating{
     width: 15% !important;
 }
+.nav-pills .nav-link.active{
+    background-color: var(--primary-green) !important;
+}
 
 @keyframes fade {
     0% {

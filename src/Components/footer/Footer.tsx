@@ -20,8 +20,8 @@ const Footer = () => {
             <div className='container'>
                 <Row className='mt-3 mx-auto'>
                     <Col xs={12} sm={6} md={3}>
-                        <div>
-                            <Image src={logo} alt='logo' className='img-fluid' />
+                        <div className='text-center'>
+                            <Image src={logo} alt='logo' className='img-fluida w-50 h-50' />
                         </div>
                     </Col>
                     <Col xm={12} sm={6} md={3} className='text-center text-sm-start'>

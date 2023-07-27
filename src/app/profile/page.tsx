@@ -1,176 +1,44 @@
 "use client"
-import { useForm } from "react-hook-form";
-import { FC,useEffect, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from 'react-redux'
-import { getUserData, updateProfile } from "@/Redux/Features/userSlice";
-import useAuth from "@/Hooks/useAuth";
+import { FC } from "react";
+import { Col, Row, Nav, Tab} from "react-bootstrap";
+
 import './profile.css'
-
+import BasicDetails from "@/Components/profile/BasicDetails";
+import AddressTab from "@/Components/profile/AdderessTab";
 const Profile: FC = () => {
-    const profile = useSelector((state: any) => state.user.profile);
-    const [profileData, setProfileData] = useState({
-        name: '',
-        email: '',
-        phoneNo: '',
-    })
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const { isAuth, token }: any = useAuth();
-    const dispatch = useDispatch();
-    // console.log(token, isAuth);
-    // console.log(profileData);
-    const onSubmit = (data: {}) => {
-        console.log(data);
-        dispatch(updateProfile(data));
-    }
-
-    useEffect(() => {
-        if(profile){
-            setProfileData(profile);
-        }
-    },[profile]);
-
-    useEffect(() => {
-        dispatch(getUserData(token));
-    }, [dispatch,token]);
-
-    const handleChange = (e: any) => {
-        setProfileData(
-            {
-                ...profileData,
-                [e.target.name]: e.target.value,
-            }
-        );
-    }
-
     return (
         <section id="profile" className="container bg-light py-3">
-            
             <div>
                 <h1 className="text-center header"><span className="secondary">User</span> Profile</h1>
             </div>
-            <div className="mt-2">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Row>
-                        <h4 className="my-3"><span>Basic</span> Details</h4>
-                        <Col xs={12} md={6}>
-                            <div className="mb-2">
-                                <label htmlFor="name" className="form-label">Username</label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    value={profileData.name}
-                                    className="form-control"
-                                    {...register('name')}
-                                    onChange={handleChange}
-                                />
-                                {
-                                    errors.name && <small>Please Enter Name</small>
-                                }
-                            </div>
-                        </Col>
-                        <Col xs={12} md={6}>
-                            <div className="mb-2">
-                                <label htmlFor="email" className="form-label">Email</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    value={profileData.email}
-                                    className="form-control"
-                                    {...register('email')}
-                                    onChange={handleChange}
-
-
-                                />
-                            </div>
-                        </Col>
-                        <Col xs={12} md={6}>
-                            <div className="mb-2">
-                                <label htmlFor="PhoneNo" className="form-label">Phone No</label>
-                                <input
-                                    type="number"
-                                    id="PhoneNo"
-                                    value={profileData.phoneNo}
-                                    className="form-control"
-                                    {...register('phoneNo')}
-                                    onChange={handleChange}
-
-
-                                />
-
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row className="mt-3">
-                        <h4><span>Residential</span> Details</h4>
-                        <Col xs={12} md={6}>
-                            <div className="mb-2">
-                                <label htmlFor="address" className="form-label">Address</label>
-                                <input
-                                    type="text"
-                                    id="address"
-                                    className="form-control"
-                                    {...register('address')} />
-                            </div>
-                        </Col>
-                        {/* <Col xs={12} md={6}>
-                            <div className="mb-2">
-                                <label htmlFor="street2" className="form-label">Street 2</label>
-                                <input
-                                    type="text"
-                                    id="street2"
-                                    className="form-control"
-                                    {...register('street2')} />
-                            </div>
-                        </Col> */}
-                        <Col xs={12} md={6}>
-                            <div className="mb-2">
-                                <label htmlFor="zip" className="form-label">Zip Code</label>
-                                <input
-                                    type="number"
-                                    id="zip"
-                                    className="form-control"
-                                    {...register('zip')} />
-                            </div>
-                        </Col>
-                        <Col xs={12} md={6}>
-                            <div className="mb-2">
-                                <label htmlFor="city" className="form-label">City</label>
-                                <input
-                                    type="text"
-                                    id="city"
-                                    className="form-control"
-                                    {...register('city')} />
-                            </div>
-                        </Col>
-                        <Col xs={12} md={6}>
-                            <div className="mb-2">
-                                <label htmlFor="state" className="form-label">State</label>
-                                <input
-                                    type="text"
-                                    id="state"
-                                    className="form-control"
-                                    {...register('state')} />
-                            </div>
-                        </Col>
-                        {/* <Col xs={12} md={6}>
-                            <div className="mb-2">
-                                <label htmlFor="country" className="form-label">Country</label>
-                                <input
-                                    type="text"
-                                    id="country"
-                                    className="form-control"
-                                    {...register('country')} />
-                            </div>
-                        </Col> */}
-                    </Row>
-                    <div>
-                        <Button type="submit" className="primary-btn">Update</Button>
-                    </div>
-                </form>
-            </div>
+            <Tab.Container id="left-tabs" defaultActiveKey="basic_details">
+                <Row>
+                    <Col sm={3} className="border-end">
+                        <Nav variant="pills" className="flex-column">
+                            <Nav.Item className="active">
+                                <Nav.Link eventKey="basic_details">Basic Details</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="address">Address</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="orders">Orders</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                    </Col>
+                    <Col>
+                        <Tab.Content>
+                            <BasicDetails />
+                            <AddressTab />
+                            <Tab.Pane eventKey="orders">
+                                    <h1>Yaha orders dikhenge</h1>
+                            </Tab.Pane>
+                        </Tab.Content>
+                    </Col>
+                </Row>
+            </Tab.Container>
         </section>
     )
 }
 
-export default Profile
+export default Profile;
