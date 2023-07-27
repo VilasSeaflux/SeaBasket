@@ -4,13 +4,13 @@ import { getCategoryProduct, getProductsData } from '@/Redux/Features/productSli
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 
-import FilterCanvas from './FilterCanvas';
 import useAuth from '@/Hooks/useAuth';
-import ProductCard from './ProductCard';
 import BreadCrumb from '@/Components/breadcrumb/BreadCrumb';
-
-import './category.css';
 import Loading from '@/app/loading';
+import FilterCanvas from '../../../Components/product/FilterCanvas';
+import ProductCard from '../../../Components/product/ProductCard';
+
+import '../../../Components/product/category.css';
 
 
 const ProductCategory: FC = () => {

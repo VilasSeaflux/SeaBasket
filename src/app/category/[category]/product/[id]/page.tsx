@@ -14,7 +14,7 @@ import axios from "@/Helper/axios";
 import Rupee from "@/Helper/priceFormat";
 import Loading from "@/app/loading";
 
-import './productPage.css';
+import '../../../../../Components/product/category.css';
 import "react-toastify/dist/ReactToastify.css";
 import '@smastrom/react-rating/style.css'
 import { Controller, useForm } from "react-hook-form";
