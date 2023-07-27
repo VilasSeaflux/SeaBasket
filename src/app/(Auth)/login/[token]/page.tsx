@@ -33,7 +33,7 @@ const Verification: FC = () => {
             );
             console.log(res);
             const token = await res?.data?.authToken;
-            toast.success("User Verified, Redirecting to Profile....");
+            toast.success("User Verification Successful...");
             localStorage.setItem("token",JSON.stringify(token));
             dispatch(setIsAuth());
             await wait(2000);
