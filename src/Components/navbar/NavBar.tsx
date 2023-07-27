@@ -2,22 +2,25 @@
 import { useEffect, useState } from 'react';
 import { Button, Container, Nav, Navbar, Dropdown } from 'react-bootstrap';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '../../../public/images/logo.png';
 import profile from '../../../public/images/profile.webp'
+import ModalComponent from '../modal/Modal';
+import useAuth from '@/Hooks/useAuth';
+
 import './navbar.css'
 
-import { useCookies } from 'react-cookie';
-import ModalComponent from '../modal/Modal';
-import { useSelector } from 'react-redux';
 
 export default function NavBar() {
     const [show, setShow] = useState(false);
     const [showModal,setShowModal] = useState(false);
     const {cart} = useSelector((state:any) => state?.myCart);
+    const {token} = useAuth();
+
     const handleModal = () => setShowModal(!show);
-    const [{token}] = useCookies(['token']);
 
     useEffect(() => {
         setShow(true);
@@ -45,7 +48,7 @@ export default function NavBar() {
                         </Button>
                     </Link>
                     {
-                        !token ? (
+                        token === null ? (
                             <Link href="/login">
                                 <Button className='login-btn'>
                                     Login

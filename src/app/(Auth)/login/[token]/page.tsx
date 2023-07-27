@@ -19,7 +19,6 @@ interface otp {
 
 const Verification: FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [cookies,setCookies] = useCookies(['token']);
     const dispatch = useDispatch(); 
 
     const routeToken = useParams();
@@ -35,10 +34,10 @@ const Verification: FC = () => {
             console.log(res);
             const token = await res?.data?.authToken;
             toast.success("User Verified, Redirecting to Profile....");
-            setCookies('token',token);
+            localStorage.setItem("token",JSON.stringify(token));
             dispatch(setIsAuth());
             await wait(2000);
-            router.push('/profile')
+            router.push('/')
         }
         catch (error:any) {
             console.log(error);
