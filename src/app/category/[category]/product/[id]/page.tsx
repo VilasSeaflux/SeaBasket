@@ -25,7 +25,7 @@ const ProductPage: FC = () => {
     const [loader, setLoader] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const userInfo = useSelector((state: any) => state.user.profile);
-    const { handleSubmit, register,control } = useForm();
+    const { handleSubmit, register, control } = useForm();
     const dispatch = useDispatch();
     const { category, id } = useParams();
     const decodedURL = decodeURI(category);
@@ -41,30 +41,25 @@ const ProductPage: FC = () => {
         console.log(data);
         setProduct(data.product);
     }
-    console.log(product);
+
+    const handleReview = (data: any) => {
+        // e.preventDefault();
+        const review = {
+            id: product.id,
+            username: userInfo?.name,
+            review: data.review,
+            rating: data.rating,
+        };
+        product?.reviews?.push(review);
+        alert(JSON.stringify(review))
+    }
 
     useEffect(() => {
         setLoader(true);
         getProduct();
 
-        return () => {
-            setLoader(false);
-        }
-    }, []);
+    }, [loader,]);
 
-    const handleReview = (data: any) => {
-        // e.preventDefault();
-        const review = {
-                id: product.id,
-                username: userInfo?.name,
-                review: data.review,
-                rating: data.rating,
-            };
-        product?.reviews?.push(review);
-        // console.log(currentProduct);
-        // console.log(data);
-        alert(JSON.stringify(review))
-    }
     if (!loader) {
         return <Loading />
     }

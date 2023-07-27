@@ -1,11 +1,12 @@
 import { CART } from "@/Helper/CONSTANTS";
 import axios from "@/Helper/axios";
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 
 const initialState = {
-    cart:[],
+    cart: [],
     // message: '',
     // warning: '',
 }
@@ -26,22 +27,48 @@ const initialState = {
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
-    reducers:{
-        addToCart(state:any,action:any){
-            const product = state.cart.find((item:any) => item.id === action.payload.id);
+    reducers: {
+        addToCart(state: any, action: any) {
+            const product = state.cart.find((item: any) => item.id === action.payload.id);
             // let quantity = 1;
-            if(product){
-                    toast.error("Product is already in the cart.");
-                    action.quantity++;
-            }else{
+            if (product) {
+                toast.error("Product is already in the cart.");
+                action.quantity++;
+            } else {
                 state.cart.push(action.payload);
                 toast.success("Product is added in the cart.");
             }
         },
-        removeFromCart(state,action){
-            state.cart = state.cart.filter((product:any) => product.id === action.payload.id);
+        plusQuantity(state, action): any {
+            const product = state.cart.find((item: any) => item.id === action.payload.id);
+            if (product) {
+                return {
+                    ...state,
+                    cart: state.cart.map((item: any) => item.id === action.payload.id ? {
+                        ...item,
+                        quantity: item.quantity + 1,
+                    } : item)
+                }
+            }
         },
-        emptyCart(state){
+        minusQuantity(state, action):any {
+            const product:any = state.cart.find((item: any) => item.id === action.payload.id);
+            if(product?.quantity < 1){
+                removeFromCart(product);
+            }else if (product) {
+                return {
+                    ...state,
+                    cart: state.cart.map((item: any) => item.id === action.payload.id ? {
+                        ...item,
+                        quantity: item.quantity - 1,
+                    } : item)
+                }
+            }
+        },
+        removeFromCart(state, action) {
+            state.cart = state.cart.filter((product: any) => product.id !== action.payload.id);
+        },
+        emptyCart(state) {
             state.cart = [];
         }
     },
@@ -58,4 +85,4 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
-export const {addToCart,removeFromCart,emptyCart} = cartSlice.actions;
+export const { addToCart, removeFromCart, emptyCart,plusQuantity,minusQuantity } = cartSlice.actions;

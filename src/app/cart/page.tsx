@@ -1,27 +1,43 @@
 "use client"
-import Rupee from "@/Helper/priceFormat";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+
+import Rupee from "@/Helper/priceFormat";
+import ProductCard from "@/Components/productCard/ProductCard";
+import CartList from "./CartList";
+import EmptyCart from "./EmptyCart";
+import useAuth from "@/Hooks/useAuth";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
     const { cart } = useSelector((state: any) => state?.myCart);
-    console.log(cart);
+    const { token } = useAuth();
     const router = useRouter();
 
     const getTotal = () => {
         let total = 0;
-        const getTotalAmount = cart.forEach((item: any) => total = total + (item.price * (item.quantity | 1)));
-        console.log(total);
-
-        console.log(getTotalAmount);
+        const getTotalAmount = cart.forEach((item: any) => total = total + (item.price * (item.quantity)));
         return total;
     }
-    if (!cart) {
-        return <h1>Cart is empty.</h1>
+
+    useEffect(() => {
+
+    }, [cart]);
+
+    if (cart.length === 0) {
+        return <EmptyCart />
+    }
+
+    const handleCheckout = () => {
+        token ? toast.success("Logged in...") : toast.warning("Please Login");
     }
     return (
         <section className="bg-light container pb-5 pt-3" id="cart">
+            <ToastContainer autoClose={2000} />
             <div className="">
                 <Button className="primary-btn border-0" onClick={() => router.back()}>Go Back</Button>
             </div>
@@ -30,16 +46,7 @@ const Cart = () => {
                     <Col md={7}>
                         {
                             cart.map((item: any) => (
-                                <div key={item.id} className="bg-white shadow-md d-flex flex-column flex-md-row justify-content-center my-2 rounded-2">
-                                    <div className="p-2 my-auto mx-auto">
-                                        <img src={item.imageUrl} alt={item.name} className="border-end border-end-2 " />
-                                    </div>
-                                    <div className="text-start mt-3">
-                                        <p>{item.name}</p>
-                                        <input type="number" value={item.quantity | 1} className="form-control w-25" />
-                                        <p className="mt-2 ms-1 fw-bold h5">{Rupee.format(item.price)}</p>
-                                    </div>
-                                </div>
+                                <ProductCard item={item} key={item.id} />
                             ))
                         }
                     </Col>
@@ -48,17 +55,12 @@ const Cart = () => {
                             <ul className="list-unstyled">
                                 {
                                     cart.map((item: any) => (
-                                        <>
-                                            <li key={item.id} className="mt-2 d-flex flex-row justify-content-between align-items-start">
-                                                <span className="small w-50">{item.name}</span>
-                                                <span>{item.quantity}  X {Rupee.format(item.price)}</span>
-                                            </li>
-                                            <hr />
-                                        </>
+                                        <CartList item={item} key={item.id} />
                                     ))
                                 }
                             </ul>
                             <p className="ms-auto float-end mb-4">{Rupee.format(getTotal())}</p>
+                            <Button className="primary-btn" onClick={handleCheckout}>Checkout</Button>
                         </div>
                     </Col>
                 </Row>
