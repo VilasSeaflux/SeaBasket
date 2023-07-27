@@ -1,12 +1,10 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
-import { Cookies } from "react-cookie";
 
 const useAuth = () => {
     const [isAuth,setIsAuth] = useState(false);
     const router = useRouter();
-    const cookies = new Cookies();
-    const token = cookies.get('token');
+    const token = JSON.parse(localStorage.getItem('token' || ''));
 
     useEffect(() => {        
         if(token){
