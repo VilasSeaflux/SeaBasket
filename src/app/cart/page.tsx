@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
 import Rupee from "@/Helper/priceFormat";
-import ProductCard from "@/Components/productCard/ProductCard";
-import CartList from "./CartList";
-import EmptyCart from "./EmptyCart";
+import ProductCard from "@/Components/cart/ProductCard";
+import CartList from "../../Components/cart/CartList";
+import EmptyCart from "../../Components/cart/EmptyCart";
 import useAuth from "@/Hooks/useAuth";
 
 import "react-toastify/dist/ReactToastify.css";
