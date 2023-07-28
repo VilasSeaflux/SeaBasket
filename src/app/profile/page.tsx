@@ -1,9 +1,9 @@
 "use client"
 import { FC } from "react";
-import { Col, Row, Nav, Tab} from "react-bootstrap";
+import { Col, Row, Nav, Tab } from "react-bootstrap";
 
 import './profile.css'
-import BasicDetails from "@/Components/profile/BasicDetails";
+import BasicDetails from "@/Components/profile/BasicDetailsForm";
 import AddressTab from "@/Components/profile/AdderessTab";
 const Profile: FC = () => {
     return (
@@ -28,10 +28,14 @@ const Profile: FC = () => {
                     </Col>
                     <Col>
                         <Tab.Content>
-                            <BasicDetails />
-                            <AddressTab />
+                            <Tab.Pane eventKey="basic_detilas">
+                                <BasicDetails />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="address">
+                                <AddressTab />
+                            </Tab.Pane>
                             <Tab.Pane eventKey="orders">
-                                    <h1>Yaha orders dikhenge</h1>
+                                <h1>Yaha orders dikhenge</h1>
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>

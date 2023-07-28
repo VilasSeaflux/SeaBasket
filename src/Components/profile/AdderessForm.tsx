@@ -4,7 +4,7 @@ import { Tab, Row, Col, Button } from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
-const AddressTab = () => {
+const AddressForm = () => {
     const addressSlice = useSelector((state: any) => state?.user?.address);
     const [address, setAddress] = useState({
         address: addressSlice.address,
@@ -28,7 +28,6 @@ const AddressTab = () => {
         dispatch(updateAddress(data));
     }
     return (
-        <Tab.Pane eventKey="address">
             <form onSubmit={handleSubmit(onAddressSubmit)}>
                 <Row className="mt-3">
                     <h4><span>Residential</span> Details</h4>
@@ -86,11 +85,10 @@ const AddressTab = () => {
                     </Col>
                 </Row>
                 <div>
-                    <Button type="submit" className="primary-btn">Update</Button>
+                    <Button type="submit" className="primary-btn border-success-subtle">Update</Button>
                 </div>
             </form>
-        </Tab.Pane>
     );
 }
 
-export default AddressTab;
+export default AddressForm;

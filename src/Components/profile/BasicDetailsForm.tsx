@@ -1,12 +1,12 @@
 import { getUserData, updateProfile, updateUserProfile } from "@/Redux/Features/userSlice";
 import { useState, useEffect } from "react";
-import { Tab, Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 import useAuth from "@/Hooks/useAuth";
 
-const BasicDetails = () => {
+const BasicDetailsForm = () => {
     const profile = useSelector((state: any) => state.user.profile);
     const [profileData, setProfileData] = useState({
         name: profile?.name,
@@ -37,7 +37,7 @@ const BasicDetails = () => {
         dispatch(getUserData(token));
     }, [dispatch, token]);
     return (
-        <Tab.Pane eventKey="basic_details">
+     
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
                     <h4 className="my-3"><span>Basic</span> Details</h4>
@@ -87,12 +87,11 @@ const BasicDetails = () => {
                         </div>
                     </Col>
                     <div>
-                        <Button type="submit" className="primary-btn">Update</Button>
+                        <Button type="submit" className="primary-btn border-success-subtle">Update</Button>
                     </div>
                 </Row>
             </form>
-        </Tab.Pane>
     );
 }
-export default BasicDetails;
+export default BasicDetailsForm;
 
