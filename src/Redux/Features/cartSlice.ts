@@ -1,7 +1,5 @@
 import { CART } from "@/Helper/CONSTANTS";
-import axios from "@/Helper/axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 
@@ -46,6 +44,7 @@ const cartSlice = createSlice({
         },
         emptyCart(state) {
             state.cart = [];
+            state.totalPrice = 0;
         },
         setTotal(state,action){
             state.totalPrice = action.payload;

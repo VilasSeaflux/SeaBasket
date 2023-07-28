@@ -2,34 +2,41 @@
 import AddressForm from '@/Components/profile/AdderessForm';
 import BasicDetailsForm from '@/Components/profile/BasicDetailsForm';
 import PaymentForm from '@/Components/profile/PaymentForm';
+import { ORDER } from '@/Helper/CONSTANTS';
+import axios from '@/Helper/axios';
 import Rupee from '@/Helper/priceFormat';
+import useAuth from '@/Hooks/useAuth';
+import { emptyCart } from '@/Redux/Features/cartSlice';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Stepper } from 'react-form-stepper';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 
 import "react-toastify/dist/ReactToastify.css";
 
-function UserDetails() {
+const UserDetails = () => {
     return <BasicDetailsForm />;
 }
 
-function Address() {
+const Address = () => {
     return <AddressForm />;
 }
 
-function Payment() {
+const Payment = () => {
     return <PaymentForm />;
 }
 
-function Confirmation() {
+const  Confirmation = () => {
     return <h2>Booking is confirmed</h2>;
 }
 const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
     const total = useSelector((state: any) => state.myCart.totalPrice);
+    const cart = useSelector((state:any) => state.myCart.cart);
+    const dispatch = useDispatch();
+    const { token } = useAuth();
     const router = useRouter();
     const steps = [
         { title: 'User details', label: 'User Details' },
@@ -47,9 +54,35 @@ const Checkout = () => {
         }
     }
 
+    const placeOrder = async () => {
+        try {
+            const res = await axios.post(
+                ORDER,
+                {},
+                {
+                    headers: { "Authorization": `bearer ${token}` }
+                }
+            );
+            const data = res.data;
+            if (data) {
+                toast.success(data.message);
+            }
+            console.log(res, data);
+            dispatch(emptyCart());
+            return data;
+        } catch (err: any) {
+            toast.warning(err.response.data.message);
+        }
+    }
+
+    const handleOrder = async () => {
+        await placeOrder();
+        setActiveStep(activeStep => activeStep + 1);
+    }
+
     return (
         <section className="container bg-light py-4">
-            <ToastContainer />
+            <ToastContainer autoClose={1500}/>
             <h1 className="header"><span>Checkout</span><span className='float-end small'>Total : {Rupee.format(total)}</span></h1>
             <div className='bg-white'>
                 <Stepper
@@ -66,10 +99,17 @@ const Checkout = () => {
                     {(activeStep !== 0 && activeStep !== steps.length - 1)
                         && <Button className='primary-btn mt-5 border-success-subtle me-2' onClick={() => setActiveStep(activeStep - 1)}>Previous</Button>
                     }
-                    {(activeStep !== steps.length - 1)
+                    {
+                        activeStep === 2 ? (
+                            <Button className='primary-btn mt-5 border-success-subtle' onClick={handleOrder}>Place Order</Button>
+                        ) : ((activeStep !== steps.length-1) &&
+                            <Button className='primary-btn mt-5 border-success-subtle' onClick={() => setActiveStep(activeStep + 1)}>Next</Button>
+                        )
+                    }
+                    {/* {(activeStep !== steps.length - 1)
                         && <Button className='primary-btn mt-5 border-success-subtle' onClick={() => setActiveStep(activeStep + 1)}>Next</Button>
                     }
-                    {(activeStep === 3) && toast.success("Order Placed Succesfully")}
+                    {(activeStep === 2) && <Button className='primary-btn mt-5 border-success-subtle' onClick={handleOrder}>Place Order</Button>} */}
 
                     {(activeStep === steps.length - 1)
                         && <Button className='primary-btn mt-5 border-success-subtle' onClick={() => router.push('/')}>Home</Button>

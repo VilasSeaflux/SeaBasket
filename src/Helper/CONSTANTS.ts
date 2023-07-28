@@ -6,3 +6,4 @@ export const PRODUCT: string = '/product';
 export const CATEGORIES: string = '/categories';
 export const FILTER: string = '/filter';
 export const CART:string = '/cart';
+export const ORDER:string = '/order'
