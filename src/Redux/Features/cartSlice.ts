@@ -7,22 +7,9 @@ import { toast } from "react-toastify";
 
 const initialState = {
     cart: [],
-    // message: '',
-    // warning: '',
+    totalPrice: 0,
 }
 
-// export const addToCart:any = createAsyncThunk('post/addToCart',async (token,data) => {
-//     const res = await axios.post(
-//         CART,
-//         JSON.stringify(data),
-//         {
-//             headers:{Authorization : `bearer ${token}`}
-//         }
-//     );
-//     const productData = await res.data;
-//     console.log(productData);
-//     return productData;
-// });
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -40,29 +27,18 @@ const cartSlice = createSlice({
             }
         },
         plusQuantity(state, action): any {
-            const product = state.cart.find((item: any) => item.id === action.payload.id);
+            const product: any = state.cart.find((item: any) => item.id === action.payload.id);
             if (product) {
-                return {
-                    ...state,
-                    cart: state.cart.map((item: any) => item.id === action.payload.id ? {
-                        ...item,
-                        quantity: item.quantity + 1,
-                    } : item)
-                }
+                product.quantity = product.quantity + 1
             }
         },
-        minusQuantity(state, action):any {
-            const product:any = state.cart.find((item: any) => item.id === action.payload.id);
-            if(product?.quantity < 1){
-                removeFromCart(product);
-            }else if (product) {
-                return {
-                    ...state,
-                    cart: state.cart.map((item: any) => item.id === action.payload.id ? {
-                        ...item,
-                        quantity: item.quantity - 1,
-                    } : item)
-                }
+        minusQuantity(state, action): any {
+            const product: any = state.cart.find((item: any) => item.id === action.payload.id);
+            if (product) {
+                product.quantity = product.quantity - 1
+            }
+            if (product.quantity <= 0) {
+                state.cart = state.cart.filter((item: any) => item.id !== action.payload.id);
             }
         },
         removeFromCart(state, action) {
@@ -70,19 +46,13 @@ const cartSlice = createSlice({
         },
         emptyCart(state) {
             state.cart = [];
+        },
+        setTotal(state,action){
+            state.totalPrice = action.payload;
         }
+
     },
-    // extraReducers(builder){
-    //     builder.addCase(addToCart.fulfilled,(state:any,action:any) => {
-    //         const isProduct = state.cart.find((item:any) => item.id === action.payload.id);
-    //         if(isProduct){
-    //             alert("Product already in the cart.");
-    //         }else{
-    //             state.cart.push(action.payload);
-    //         }
-    //     });
-    // }
 });
 
 export default cartSlice.reducer;
-export const { addToCart, removeFromCart, emptyCart,plusQuantity,minusQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, emptyCart, plusQuantity, minusQuantity,setTotal } = cartSlice.actions;
