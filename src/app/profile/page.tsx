@@ -3,8 +3,9 @@ import { FC } from "react";
 import { Col, Row, Nav, Tab } from "react-bootstrap";
 
 import './profile.css'
-import BasicDetails from "@/Components/profile/BasicDetailsForm";
-import AddressTab from "@/Components/profile/AdderessTab";
+import BasicDetailsForm from "@/Components/profile/BasicDetailsForm";
+import AddressForm from "@/Components/profile/AdderessForm";
+import Orders from "@/Components/profile/Orders";
 const Profile: FC = () => {
     return (
         <section id="profile" className="container bg-light py-3">
@@ -28,14 +29,14 @@ const Profile: FC = () => {
                     </Col>
                     <Col>
                         <Tab.Content>
-                            <Tab.Pane eventKey="basic_detilas">
-                                <BasicDetails />
+                            <Tab.Pane eventKey="basic_details">
+                                <BasicDetailsForm />
                             </Tab.Pane>
                             <Tab.Pane eventKey="address">
-                                <AddressTab />
+                                <AddressForm />
                             </Tab.Pane>
                             <Tab.Pane eventKey="orders">
-                                <h1>Yaha orders dikhenge</h1>
+                                <Orders />
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>

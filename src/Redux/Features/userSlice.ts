@@ -1,4 +1,4 @@
-import { PROFILE } from '@/Helper/CONSTANTS';
+import { ORDER, PROFILE } from '@/Helper/CONSTANTS';
 import axios from '@/Helper/axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -48,6 +48,21 @@ export const updateUserProfile: any = createAsyncThunk('put/UserData', async ({ 
     }
 });
 
+export const getOrders:any = createAsyncThunk('get/Orders', async(token) => {
+    try{
+        const res = await axios.get(
+            ORDER,
+            {
+                headers: {"Authorization": `bearer ${token}`}
+            });
+        const data = await res.data;
+        console.log(data);
+        return data;
+    }catch(err){
+        console.log(err);
+    }
+});
+
 
 
 
@@ -91,6 +106,9 @@ const userSlice = createSlice({
             })
             .addCase(updateUserProfile.fulfilled, (state, action) => {
                 state.profile = action.payload.profile;
+            })
+            .addCase(getOrders.fulfilled, (state,action) => {
+                state.orders = action.payload;
             })
     }
 });
