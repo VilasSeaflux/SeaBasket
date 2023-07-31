@@ -2,6 +2,14 @@
     --primary-green: #22cc9d;
     --text: #4b2767;
 }
+.primary-text {
+    color: var(--primary-green);
+    font-size: 2.5rem !important;
+    font-weight: 700;
+}
+.secondary-text{
+    color: var(--text);
+}
 
 .primary-btn {
     background-color: var(--primary-green) !important;
