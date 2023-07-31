@@ -7,3 +7,4 @@ export const CATEGORIES: string = '/categories';
 export const FILTER: string = '/filter';
 export const CART:string = '/cart';
 export const ORDER:string = '/order'
+export const TRENDING:string = '/trending-products';

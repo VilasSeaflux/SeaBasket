@@ -21,7 +21,7 @@ export default function ProductCard({ productData, url }: { productData: any, ur
                 <Row className='align-items-center justify-content-center'>
                     <Col sm={3} className="text-center">
                         <Link href={`${url}/product/${productData.id}`} className="text-decoration-none">
-                            <img src={productData.imageUrl} alt='laptop 1' className='img-thumbnail border-0' />
+                            <img src={productData.imageUrl} alt='laptop 1' className='img-thumbnail border-0 ci' />
                         </Link>
                     </Col>
                     <Col sm={9}>
@@ -35,10 +35,10 @@ export default function ProductCard({ productData, url }: { productData: any, ur
                                 ) : ''
                             }
                             <div className="my-2">
-                                <p className="my-auto">
+                                {/* <p className="my-auto"> */}
                                     <Rating value={productData.avgRating} readOnly className="rating" />
                                     {/* <span><AiFillStar className="h5 mt-1" fill="#FFBF00" /></span> */}
-                                </p>
+                                {/* </p> */}
                             </div>
                             <h5>
                                 {

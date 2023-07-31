@@ -1,6 +1,8 @@
 #carousel .ci{
-    width: 100% !important;
-    height: 35vh !important;
+    width: 25vw !important;
+    height: 30vh !important;
+    object-fit: contain !important;
+    
 }
 #carousel h2{
     font-size: 2.5rem !important;

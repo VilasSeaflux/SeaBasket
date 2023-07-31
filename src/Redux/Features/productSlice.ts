@@ -1,6 +1,13 @@
-import { CATEGORIES, PRODUCT, FILTER } from '@/Helper/CONSTANTS';
+import { CATEGORIES, PRODUCT, FILTER, TRENDING } from '@/Helper/CONSTANTS';
 import axios from '@/Helper/axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
+const initialState = {
+    products: [],
+    categories: [],
+    categoryProduct: [],
+    trending: [],
+}
 
 export const getProductsData: any = createAsyncThunk("get/Products", async (token) => {
     try {
@@ -14,15 +21,10 @@ export const getProductsData: any = createAsyncThunk("get/Products", async (toke
         const data = await res.data;
         // console.log(data);
         return data;
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 })
-const initialState = {
-    products: [],
-    categories: [],
-    categoryProduct: []
-}
 
 export const getCategories: any = createAsyncThunk("get/categories", async (token) => {
     const res = await axios.get(
@@ -37,22 +39,42 @@ export const getCategories: any = createAsyncThunk("get/categories", async (toke
 });
 
 export const getCategoryProduct: any = createAsyncThunk('get/categoryProducts', async (query: string, token) => {
-    const res = await axios.get(
-        `${FILTER}?category=${query}`,
-        {
-            headers: { Authorization: `bearer ${token}` }
-        }
-    );
-    const data = await res.data;
-    console.log(data);
-    return data;
-})
+    try {
+        const res = await axios.get(
+            `${FILTER}?category=${query}`,
+            {
+                headers: { Authorization: `bearer ${token}` }
+            }
+        );
+        const data = await res.data;
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+export const getTrendingProducts:any = createAsyncThunk('get/Trending_products', async (token) => {
+    try {
+        const res = await axios.get(
+            TRENDING,
+            {
+                headers: { "Authorization": `bearer ${token}` }
+            }
+        );
+        const data = await res.data;
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 const productsSlice = createSlice({
     name: "products",
     initialState,
     reducers: {
-        clearCategory(state){
+        clearCategory(state) {
             state.categoryProduct = [];
         }
     },
@@ -67,8 +89,11 @@ const productsSlice = createSlice({
             .addCase(getCategoryProduct.fulfilled, (state, action) => {
                 state.categoryProduct = action.payload;
             })
+            .addCase(getTrendingProducts.fulfilled, (state, action) => {
+                state.trending = action.payload;
+            })
     }
 });
 
 export default productsSlice.reducer;
-export const {clearCategory} = productsSlice.actions;
+export const { clearCategory } = productsSlice.actions;
