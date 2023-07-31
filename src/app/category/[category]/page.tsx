@@ -1,15 +1,15 @@
 "use client"
 import { useState, FC, useEffect } from 'react';
-import { getCategoryProduct, getProductsData } from '@/Redux/Features/productSlice';
+import { getCategoryProduct } from '@/Redux/Features/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 
 import useAuth from '@/Hooks/useAuth';
 import BreadCrumb from '@/Components/breadcrumb/BreadCrumb';
 import Loading from '@/app/loading';
+
 import FilterCanvas from '../../../Components/product/FilterCanvas';
 import ProductCard from '../../../Components/product/ProductCard';
-
 import '../../../Components/product/category.css';
 
 
