@@ -1,6 +1,6 @@
 "use client"
 import OrdersCard from "@/Components/profile/OrdersCard";
-import { ORDER } from "@/Helper/CONSTANTS";
+import { ORDER, PROFILE } from "@/Helper/CONSTANTS";
 import axios from "@/Helper/axios";
 import Rupee from "@/Helper/priceFormat";
 import useAuth from "@/Hooks/useAuth";
@@ -10,8 +10,10 @@ import { useEffect, useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { Stepper } from "react-form-stepper";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// import '../../../globals.css';
+
 const Orders = () => {
     const [ordersData, setOrdersData] = useState<any>();
     const [activeStep, setActiveStep] = useState(0);
@@ -22,31 +24,51 @@ const Orders = () => {
     const CurrentDate = new Date();
     const orderData = useSelector((state: any) => state.user.orders.orders.filter((item: any) => item.id == params.id));
     const date = new Date(orderData[0].orderDate);
-    const OrderedDate = date.toDateString();
+    const OrderedDate = new Date(date);
     const dispatchedDate = new Date(date);
     const arrivedDate = new Date(date);
     const delivered = new Date(date);
     dispatchedDate.setDate(dispatchedDate.getDate() + 1);
-    arrivedDate.setDate(dispatchedDate.getDate() + 2);
-    delivered.setDate(dispatchedDate.getDate() + 3);
-    // console.log(CurrentDate);
-    // console.log(dispatchedDate);
-    // console.log(arrivedDate);
-    // console.log(delivered);
+    arrivedDate.setDate(OrderedDate.getDate() + 2);
+    delivered.setDate(OrderedDate.getDate() + 3);
+    console.log(CurrentDate);
+    console.log(dispatchedDate);
+    console.log(arrivedDate);
+    console.log(delivered);
 
     const { token } = useAuth();
     const getOrdersData = async () => {
-        const res = await axios.get(
-            `${ORDER}/${params.id}`,
-            {
-                headers: { "Authorization": `bearer ${token}` }
-            }
-        )
-        const data = await res.data;
-        console.log(data);
-        setOrdersData(data);
+        try {
+            const res = await axios.get(
+                `${ORDER}/${params.id}`,
+                {
+                    headers: { "Authorization": `bearer ${token}` }
+                }
+            )
+            const data = await res.data;
+            console.log(data);
+            setOrdersData(data);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
+    const handleCancelOrder = async () => {
+        try {
+            const res = await axios.post(
+                `${ORDER}/${params.id}`,
+                {},
+                {
+                    headers: { "Authorization": `bearer ${token}` }
+                }
+            );
+            const data = await res.data;
+            console.log(data);
+            toast.success("Order Canceled!!");
+        }catch(err){
+            console.log(err);
+        }
+    }
     const steps = [
         { label: `Order Placed on ${OrderedDate}`, },
         { label: `Dispatched from store` },
@@ -57,7 +79,7 @@ const Orders = () => {
     useEffect(() => {
         getOrdersData();
         setLoader(true);
-        if (dispatchedDate.getDate() < CurrentDate.getDate()) {
+        if (CurrentDate.getDate() > dispatchedDate.getDate() || CurrentDate.getMonth() > dispatchedDate.getMonth()) {
             // steps[1].label = `Dispatched from store on ${dispatchedDate.toDateString()}`
             const newLabel = `Dispatched from store on ${dispatchedDate.toDateString()}`
             steps[1].label = newLabel;
@@ -66,7 +88,7 @@ const Orders = () => {
         else if (arrivedDate.getDate() < CurrentDate.getDate()) {
             setActiveStep(2);
         }
-        else if(delivered.getDate() < CurrentDate.getDate()){
+        else if (delivered.getDate() < CurrentDate.getDate()) {
             setActiveStep(3);
         }
 
@@ -79,6 +101,7 @@ const Orders = () => {
 
     return (
         <section className="container bg-light py-3">
+            <ToastContainer autoClose={1500} />
             <h1 className="primary-text"><span className="secondary-text">Order</span> Details</h1>
             <Stepper
                 activeStep={activeStep}
@@ -94,12 +117,12 @@ const Orders = () => {
                 <div className="container">
                     {
                         ordersData?.order?.products.map((item: any) => (
-                            <OrdersCard item={item} key={item.id}/>
-                            ))
+                            <OrdersCard item={item} key={item.id} />
+                        ))
                     }
                 </div>
                 <div className="mb-5">
-                    <Button className="btn-danger float-end">Cancel</Button>
+                    <Button className="btn-danger float-end" onClick={() => handleCancelOrder()}>Cancel</Button>
                 </div>
             </div>
 
