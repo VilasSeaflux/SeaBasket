@@ -15,20 +15,12 @@ import './navbar.css'
 
 
 export default function NavBar() {
-    const [show, setShow] = useState(false);
     const [showModal,setShowModal] = useState(false);
     const {cart} = useSelector((state:any) => state?.myCart);
     const {token} = useAuth();
 
-    const handleModal = () => setShowModal(!show);
+    const handleModal = () => setShowModal(!showModal);
 
-    useEffect(() => {
-        setShow(true);
-    }, [token]);
-
-    if (!show) {
-        return;
-    }
     return (
         <Navbar className='nav-wrapper'>
             <ModalComponent onShow={showModal} onHandleModal={handleModal}/>
@@ -38,19 +30,21 @@ export default function NavBar() {
                         <Image
                             src={logo}
                             alt='logo'
-                            className='navbar-logo' />
+                            className='navbar-logo'
+                            loading='lazy'
+                            />
                     </Navbar.Brand>
                 </Link>
                 <Nav className="ms-auto justify-content-center align-items-center">
                     <Link href='/cart'>
-                        <Button className='signup-btn me-2'>
+                        <Button className='primary-btn me-2'>
                             <span className='me-1 '>{cart?.length}</span><AiOutlineShoppingCart />
                         </Button>
                     </Link>
                     {
                         token === null ? (
                             <Link href="/login">
-                                <Button className='login-btn'>
+                                <Button className='secondary-btn'>
                                     Login
                                 </Button>
                             </Link>
@@ -71,12 +65,6 @@ export default function NavBar() {
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-
-                                {/* <Link href="/login">
-                                    <Button className='login-btn'>
-                                        Logout
-                                    </Button>
-                                </Link> */}
                             </>
                         )
                     }

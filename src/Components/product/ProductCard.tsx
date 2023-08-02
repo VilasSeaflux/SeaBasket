@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { Rating } from '@smastrom/react-rating'
 import Link from "next/link";
 import Rupee from "@/Helper/priceFormat";
+import Image from "next/image";
 
 import 'react-toastify/dist/ReactToastify.css'
 import '@smastrom/react-rating/style.css'
@@ -20,13 +21,13 @@ export default function ProductCard({ productData, url }: { productData: any, ur
                 <Row className='align-items-center justify-content-center'>
                     <Col sm={3} className="text-center">
                         <Link href={`${url}/product/${productData.id}`} className="text-decoration-none">
-                            <img src={productData.imageUrl} alt='laptop 1' className='img-thumbnail border-0 ci' />
+                            <Image src={productData.imageUrl} alt='laptop 1' className='img-thumbnail border-0 ci' width={200} height={200} loading="lazy"/>
                         </Link>
                     </Col>
                     <Col sm={9}>
                         <div className='d-flex flex-column align-items-start'>
                             <Link href={`${url}/product/${productData.id}`} className="text-decoration-none">
-                                <h4>{productData.name}</h4>
+                                <h4 className="text-dark">{productData.name}</h4>
                             </Link>
                             {
                                 productData.saleCount > 1000 ? (

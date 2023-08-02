@@ -1,14 +1,16 @@
 'use client'
 
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { getProductsData } from "@/Redux/Features/productSlice"
 import { useEffect, useState } from "react"
-import { CookiesProvider } from "react-cookie"
 
-import ProductCategory from "@/Components/homepage/ProductCategory"
-import CarouselComp from "@/Components/homepage/Carousel"
-import useAuth from "@/Hooks/useAuth"
-import Loading from "./loading"
+
+import dynamic from "next/dynamic"
+
+import ProductCategory from "@/Components/homepage/ProductCategory";
+import CarouselComp from "@/Components/homepage/Carousel";
+import Loading from "./loading";
+import useAuth from "@/Hooks/useAuth";
 
 const Home = () => {
   const [loader, setLoader] = useState(false);
@@ -17,7 +19,6 @@ const Home = () => {
   useEffect(() => {
     setLoader(true);
     dispatch(getProductsData(token));
-
     return () => {
       setLoader(false);
     }
@@ -27,7 +28,6 @@ const Home = () => {
     return <Loading />
   }
   return (
-    <CookiesProvider>/
       <main className="container">
         <section className="container bg-light">
           <CarouselComp />
@@ -36,7 +36,6 @@ const Home = () => {
           <ProductCategory />
         </section>
       </main>
-    </CookiesProvider>
   );
 }
 

@@ -4,7 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import wait from "@/Helper/wait";
-import './modal.css';
+
 import { useDispatch } from "react-redux";
 import { emptyCart } from "@/Redux/Features/cartSlice";
 import { removeIsAuth } from "@/Redux/Features/authSlice";

@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { addToCart } from "@/Redux/Features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Rating } from '@smastrom/react-rating';
+import { Controller, useForm } from "react-hook-form";
 
 import BreadCrumb from "@/Components/breadcrumb/BreadCrumb";
 import useAuth from "@/Hooks/useAuth";
@@ -14,15 +15,12 @@ import axios from "@/Helper/axios";
 import Rupee from "@/Helper/priceFormat";
 import Loading from "@/app/loading";
 
-import '../../../../../Components/product/category.css';
 import "react-toastify/dist/ReactToastify.css";
 import '@smastrom/react-rating/style.css'
-import { Controller, useForm } from "react-hook-form";
 
 
 const ProductPage: FC = () => {
     const [product, setProduct] = useState<any>();
-    const [loader, setLoader] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const userInfo = useSelector((state: any) => state.user.profile);
     const { handleSubmit, register, control } = useForm();
@@ -43,7 +41,6 @@ const ProductPage: FC = () => {
     }
 
     const handleReview = (data: any) => {
-        // e.preventDefault();
         const review = {
             id: product.id,
             username: userInfo?.name,
@@ -55,14 +52,10 @@ const ProductPage: FC = () => {
     }
 
     useEffect(() => {
-        setLoader(true);
         getProduct();
 
-    }, [loader,]);
+    }, []);
 
-    if (!loader) {
-        return <Loading />
-    }
 
     return (
         <section id="productPage" className="bg-light container pb-5">
