@@ -24,8 +24,8 @@ const Address = () => {
     return <AddressForm />;
 }
 
-const Payment = () => {
-    return <PaymentForm />;
+const Payment = (props:any) => {
+    return <PaymentForm filled={props.isFilled}/>;
 }
 
 const  Confirmation = () => {
@@ -35,6 +35,7 @@ const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
     const total = useSelector((state: any) => state.myCart.totalPrice);
     const cart = useSelector((state:any) => state.myCart.cart);
+    const [paymentInfo,setPaymentInfo ]= useState(true);
     const dispatch = useDispatch();
     const { token } = useAuth();
     const router = useRouter();
@@ -47,7 +48,7 @@ const Checkout = () => {
     function getSectionComponent() {
         switch (activeStep) {
             case 0: return <UserDetails />;
-            case 1: return <Payment />;
+            case 1: return <Payment isFilled={setPaymentInfo}/>;
             case 2: return <Address />;
             case 3: return <Confirmation />;
             default: return null;
@@ -103,7 +104,7 @@ const Checkout = () => {
                         activeStep === 2 ? (
                             <Button className='primary-btn mt-5 border-success-subtle' onClick={handleOrder}>Place Order</Button>
                         ) : ((activeStep !== steps.length-1) &&
-                            <Button className='primary-btn mt-5 border-success-subtle' onClick={() => setActiveStep(activeStep + 1)}>Next</Button>
+                            <Button className='primary-btn mt-5 border-success-subtle' onClick={() => setActiveStep(activeStep + 1)} disabled={ activeStep === 1 ? paymentInfo : false}>Next</Button>
                         )
                     }
                     {/* {(activeStep !== steps.length - 1)
