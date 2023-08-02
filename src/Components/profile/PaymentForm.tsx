@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 import PaymentCC from "./PaymentCC";
 import { ToastContainer, toast } from "react-toastify";
 
-const PaymentForm = () => {
+const PaymentForm = ({filled}:any) => {
     const [paymentType, setPaymentType] = useState('Credit Card');
     const [address, setAddress] = useState('');
+    console.log(filled);
     const {
         register,
         handleSubmit,
@@ -17,6 +18,7 @@ const PaymentForm = () => {
     const onPaymentSubmit = (data: any) => {
         console.log(data);
         toast.success("Payment Details stored...");
+        filled(false);
     }
     return (
         <form onSubmit={(handleSubmit(onPaymentSubmit))}>
