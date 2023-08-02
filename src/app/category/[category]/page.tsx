@@ -7,9 +7,9 @@ import { useParams } from 'next/navigation';
 import useAuth from '@/Hooks/useAuth';
 import Loading from '@/app/loading';
 
-import FilterCanvas from '../../../Components/product/FilterCanvas';
-import ProductCard from '../../../Components/product/ProductCard';
-import '../../../Components/product/category.css';
+import FilterCanvas from '@/Components/product/FilterCanvas';
+import ProductCard from '@/Components/product/ProductCard';
+import BreadCrumb from '@/Components/breadcrumb/BreadCrumb';
 
 
 const ProductCategory: FC = () => {
