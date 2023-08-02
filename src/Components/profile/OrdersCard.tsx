@@ -1,8 +1,7 @@
 import Rupee from "@/Helper/priceFormat"
 import { Row, Col } from "react-bootstrap"
-
-
 const OrdersCard = ({item}:any) => {
+    console.log(item)
     return (
         <>
             <Row className="bg-white mb-2 p-4 border rounded-3 pb-0">

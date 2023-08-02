@@ -1,5 +1,4 @@
 import { Row, Col } from "react-bootstrap"
-
 const PaymentCC = ({ register, errors }: any) => {
     return (
         <Row>

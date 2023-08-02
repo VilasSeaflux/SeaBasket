@@ -1,3 +1,4 @@
+
 import { getUserData, updateProfile, updateUserProfile } from "@/Redux/Features/userSlice";
 import { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
@@ -5,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 import useAuth from "@/Hooks/useAuth";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 const BasicDetailsForm = () => {
     const profile = useSelector((state: any) => state.user.profile);
@@ -28,6 +31,7 @@ const BasicDetailsForm = () => {
     const onSubmit = (data: {}) => {
         dispatch(updateProfile(data));
         dispatch(updateUserProfile({ token, data }));
+        toast.success("Details Updated Successfully...");
     }
     useEffect(() => {
         setProfileData(profile);
@@ -39,6 +43,7 @@ const BasicDetailsForm = () => {
     return (
      
             <form onSubmit={handleSubmit(onSubmit)}>
+                <ToastContainer autoClose={1500} />
                 <Row>
                     <h4 className="my-3"><span>Basic</span> Details</h4>
                     <Col xs={12} md={6}>

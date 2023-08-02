@@ -1,4 +1,4 @@
-"use client"
+
 import { getOrders } from "@/Redux/Features/userSlice";
 import { useEffect } from "react";
 import { Button } from "react-bootstrap";
@@ -9,7 +9,9 @@ import useAuth from "@/Hooks/useAuth";
 import { useRouter } from "next/navigation";
 
 const Orders = () => {
-    const orders = useSelector((state: any) => state.user.orders.orders);
+    const orders = useSelector((state: any) => state?.user?.orders);
+    const cancelledOrders = useSelector((state:any) => state?.user?.cancelledOrders);
+    console.log(cancelledOrders);
     const router = useRouter();
     console.log(orders);
     const { token } = useAuth();
@@ -22,7 +24,7 @@ const Orders = () => {
     return (
         <div>
             {
-                orders ? (
+                orders.length > 0 ? (
                     <>
                         <h1><span>Placed</span> Orders</h1>
                         <div className="d-flex flex-column">
@@ -51,7 +53,7 @@ const Orders = () => {
                                                         }
                                                     </ul>
                                                 </td>
-                                                <td>{item.status}</td>
+                                                <td>{cancelledOrders.map((product:any) =>product.id === item.id ? product.status  : '')}</td>
                                                 <td className="text-center">
                                                     <Button className="secondary-btn" onClick={() => router.push(`profile/orders/${item.id}`)}>
                                                         <AiFillEye />
