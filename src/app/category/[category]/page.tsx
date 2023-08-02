@@ -1,11 +1,10 @@
 "use client"
-import { useState, FC, useEffect } from 'react';
+import { useState, FC, useEffect, lazy } from 'react';
 import { getCategoryProduct } from '@/Redux/Features/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 
 import useAuth from '@/Hooks/useAuth';
-import BreadCrumb from '@/Components/breadcrumb/BreadCrumb';
 import Loading from '@/app/loading';
 
 import FilterCanvas from '../../../Components/product/FilterCanvas';
@@ -38,7 +37,7 @@ const ProductCategory: FC = () => {
     return (
         <section className="bg-light container pb-5" id="productCategory">
             <div className="container d-flex justify-content-between align-items-center py-3">
-                <h1 className='header'><span className='secondary'>Product </span> {decodedURL}</h1>
+                <h1 className='primary-text'><span className='secondary-text'>Product </span> {decodedURL}</h1>
                 <h6 className='header-6' onClick={handleShow as any}>Filters</h6>
             </div>
             <div className='container-fluid mb-3'>

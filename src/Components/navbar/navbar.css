@@ -6,27 +6,7 @@
     max-width: 6vw;
     height: 12vh;
 }
-.signup-btn{
-    background-color: white !important;
-    color: var(--primary-green) !important;
-    border: 1px solid var(--primary-green) !important;
-}
-.nav-link{
-    color: var(--text) !important;
-}
-.signup-btn:hover{
-    background-color: var(--primary-green) !important;
-    color: white !important;
-}
-.login-btn{
-    border: 1px solid var(--primary-green) !important;
-    background-color: var(--primary-green) !important;
-}
-.login-btn:hover{
-    background-color: white !important;
-    border: 1px solid var(--primary-green) !important;
-    color: var(--primary-green) !important;
-}
+
 .profile{
     width: 3vw;
     height: auto;

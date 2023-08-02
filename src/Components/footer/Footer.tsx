@@ -7,14 +7,6 @@ import logo from '../../../public/images/logo.png'
 import './footer.css';
 
 const Footer = () => {
-    const [show,setShow] = useState(false);
-    useEffect(() => {
-        setShow(true);
-    });
-
-    if(!show){
-        return;
-    }
     return (
         <section id="footer" className="">
             <div className='container'>

@@ -1,16 +1,12 @@
 "use client"
+import { PersistGate } from 'redux-persist/integration/react';
+import { Suspense, lazy } from 'react';
+import { persistedStore } from '@/Redux/store';
+import RTKProvider from '@/Redux/Provider';
+import Loading from './loading';
+import 'bootstrap/dist/css/bootstrap.css';
 import Footer from '@/Components/footer/Footer';
 import NavBar from '@/Components/navbar/NavBar';
-import RTKProvider from '@/Redux/Provider';
-import 'bootstrap/dist/css/bootstrap.css';
-import { Inter } from 'next/font/google'
-import { Suspense } from 'react';
-import Loading from './loading';
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistedStore } from '@/Redux/store';
-
-const inter = Inter({ subsets: ['latin'] })
-
 
 export default function RootLayout({
   children,
@@ -22,7 +18,7 @@ export default function RootLayout({
       <head>
         <title>SeaBasket</title>
       </head>
-      <body className={inter.className}>
+      <body>
         <PersistGate persistor={persistedStore}>
           <RTKProvider>
             <Suspense fallback={<Loading />}>

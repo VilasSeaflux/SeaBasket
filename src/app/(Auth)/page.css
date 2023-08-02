@@ -2,13 +2,7 @@
 .auth-container{
     height: 100vh;
 }
-.auth-container h2{
-    color: var(--primary-green) !important;
-    font-weight: 800;
-}
-.auth-container span{
-    color: var(--text) !important;
-}
+
 .auth-container .form-div{
     border: 1px solid var(--text) !important;
     border-radius: 8px;

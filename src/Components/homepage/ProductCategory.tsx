@@ -5,11 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '@/Redux/Features/productSlice';
 import useAuth from '@/Hooks/useAuth';
 import CategoryCard from './CategoryCard';
-import './product_category.css'
 
 const ProductCategory: any = () => {
     const categories = useSelector((state: any) => state?.product?.categories);
-    // console.log(categories);
     const { token } = useAuth();
     const dispatch = useDispatch();
 

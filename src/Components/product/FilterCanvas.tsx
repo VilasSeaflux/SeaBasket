@@ -1,4 +1,4 @@
-"use client"
+
 import { FC } from "react";
 import { Button, Offcanvas } from "react-bootstrap";
 
