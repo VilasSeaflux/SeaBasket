@@ -1,8 +1,12 @@
+
 import { updateAddress } from "@/Redux/Features/userSlice";
 import { useState } from "react";
 import { Tab, Row, Col, Button } from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const AddressForm = () => {
     const addressSlice = useSelector((state: any) => state?.user?.address);
@@ -26,9 +30,11 @@ const AddressForm = () => {
     const onAddressSubmit = (data: {}) => {
         console.log(data);
         dispatch(updateAddress(data));
+        toast.success("Address Updated Successfully...");
     }
     return (
             <form onSubmit={handleSubmit(onAddressSubmit)}>
+                <ToastContainer autoClose={1500}/>
                 <Row className="mt-3">
                     <h4><span>Residential</span> Details</h4>
                     <Col xs={12} md={6}>

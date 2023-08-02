@@ -1,8 +1,8 @@
-import { type } from "os";
 import { useState } from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import PaymentCC from "./PaymentCC";
+import { ToastContainer, toast } from "react-toastify";
 
 const PaymentForm = () => {
     const [paymentType, setPaymentType] = useState('Credit Card');
@@ -16,9 +16,11 @@ const PaymentForm = () => {
 
     const onPaymentSubmit = (data: any) => {
         console.log(data);
+        toast.success("Payment Details stored...");
     }
     return (
         <form onSubmit={(handleSubmit(onPaymentSubmit))}>
+            <ToastContainer />
             <Row className="mt-3">
                 <h4><span>Payment</span> Details</h4>
                 <Col xs={12} md={3} className="border-end">

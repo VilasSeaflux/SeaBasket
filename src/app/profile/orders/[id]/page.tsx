@@ -4,12 +4,13 @@ import { ORDER, PROFILE } from "@/Helper/CONSTANTS";
 import axios from "@/Helper/axios";
 import Rupee from "@/Helper/priceFormat";
 import useAuth from "@/Hooks/useAuth";
+import { CancelOrder } from "@/Redux/Features/userSlice";
 import Loading from "@/app/loading";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { Stepper } from "react-form-stepper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,11 +19,13 @@ const Orders = () => {
     const [ordersData, setOrdersData] = useState<any>();
     const [activeStep, setActiveStep] = useState(0);
     const [loader, setLoader] = useState(false);
+    const dispatch =useDispatch();
     const params = useParams();
 
     //date settings
     const CurrentDate = new Date();
-    const orderData = useSelector((state: any) => state.user.orders.orders.filter((item: any) => item.id == params.id));
+    const orderData = useSelector((state: any) => state?.user?.orders?.filter((item: any) => item.id == params.id));
+    console.log(orderData)
     const date = new Date(orderData[0].orderDate);
     const OrderedDate = new Date(date);
     const dispatchedDate = new Date(date);
@@ -31,10 +34,10 @@ const Orders = () => {
     dispatchedDate.setDate(dispatchedDate.getDate() + 1);
     arrivedDate.setDate(OrderedDate.getDate() + 2);
     delivered.setDate(OrderedDate.getDate() + 3);
-    console.log(CurrentDate);
-    console.log(dispatchedDate);
-    console.log(arrivedDate);
-    console.log(delivered);
+    // console.log(CurrentDate);
+    // console.log(dispatchedDate);
+    // console.log(arrivedDate);
+    // console.log(delivered);
 
     const { token } = useAuth();
     const getOrdersData = async () => {
@@ -53,22 +56,6 @@ const Orders = () => {
         }
     }
 
-    const handleCancelOrder = async () => {
-        try {
-            const res = await axios.post(
-                `${ORDER}/${params.id}`,
-                {},
-                {
-                    headers: { "Authorization": `bearer ${token}` }
-                }
-            );
-            const data = await res.data;
-            console.log(data);
-            toast.success("Order Canceled!!");
-        }catch(err){
-            console.log(err);
-        }
-    }
     const steps = [
         { label: `Order Placed on ${OrderedDate}`, },
         { label: `Dispatched from store` },
@@ -117,12 +104,12 @@ const Orders = () => {
                 <div className="container">
                     {
                         ordersData?.order?.products.map((item: any) => (
-                            <OrdersCard item={item} key={item.id} />
+                            <OrdersCard item={item} key={item.id} status={ordersData} />
                         ))
                     }
                 </div>
                 <div className="mb-5">
-                    <Button className="btn-danger float-end" onClick={() => handleCancelOrder()}>Cancel</Button>
+                    <Button disabled={ordersData?.order.status === 'canceled'} className="btn-danger float-end" onClick={() => dispatch(CancelOrder({token,params}))}>Cancel</Button>
                 </div>
             </div>
 

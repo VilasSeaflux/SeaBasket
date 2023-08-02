@@ -30,10 +30,6 @@ const Cart = () => {
         return total;
     }
 
-    useEffect(() => {
-
-    }, [cart]);
-
     if (cart.length === 0) {
         return <EmptyCart />;
     }

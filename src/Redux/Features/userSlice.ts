@@ -1,6 +1,7 @@
 import { ORDER, PROFILE } from '@/Helper/CONSTANTS';
 import axios from '@/Helper/axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 const initialState = {
     profile: {
@@ -15,6 +16,7 @@ const initialState = {
         "state": ''
     },
     orders: [],
+    cancelledOrders: []
 }
 
 
@@ -28,6 +30,7 @@ export const getUserData: any = createAsyncThunk('get/UserData', async (token) =
         }
     );
     const data = await res.data;
+    console.log(data);
     return data;
 });
 
@@ -57,58 +60,62 @@ export const getOrders:any = createAsyncThunk('get/Orders', async(token) => {
             });
         const data = await res.data;
         console.log(data);
-        return data;
+        return data.orders;
     }catch(err){
         console.log(err);
     }
 });
 
-
-
+export const CancelOrder:any = createAsyncThunk('post/cancelOrder',async ({token,params}:any) => {
+    try {
+        const res = await axios.post(
+            `${ORDER}/${params.id}`,
+            {},
+            {
+                headers: { "Authorization": `bearer ${token}` }
+            }
+        );
+        const data = await res.data;
+        console.log(data);
+        toast.success("Order Canceled!!");
+        return data.orders;
+    }catch(err){
+        console.log(err);
+    }
+})
 
 const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
         updateProfile(state, action) {
-            if (action.payload.name) {
-                state.profile.name = action.payload.name
-            }
-            if (action.payload.email) {
-                state.profile.email = action.payload.email
-            }
-            if (action.payload.phoneNo) {
-                state.profile.phoneNo = action.payload.phoneNo
-            }
+            state.profile = action.payload;
         },
         updateAddress(state, action) {
-            if (action.payload.address) {
-                state.address.address = action.payload.address;
-            }
-            if (action.payload.city) {
-                state.address.city = action.payload.city;
-            }
-            if (action.payload.zip) {
-                state.address.zip = action.payload.zip;
-            }
-            if (action.payload.state) {
-                state.address.state = action.payload.state;
-            }
+            state.address = action.payload;
         },
         clearUser(state){
             state.profile = initialState.profile;
+            state.address = initialState.address;
+            state.orders = initialState.orders;
+            state.cancelledOrders = initialState.cancelledOrders;
         }
     },
     extraReducers(builder) {
         builder
             .addCase(getUserData.fulfilled, (state, action) => {
                 state.profile = action.payload.profile;
+                state.address = action.payload.addresses[0];
+                state.orders = action.payload.orders;
             })
             .addCase(updateUserProfile.fulfilled, (state, action) => {
                 state.profile = action.payload.profile;
             })
-            .addCase(getOrders.fulfilled, (state,action) => {
-                state.orders = action.payload;
+            // .addCase(getOrders.fulfilled, (state,action) => {
+            //     state.orders = action.payload;
+            // })
+            .addCase(CancelOrder.fulfilled, (state:any,action:any) => {
+                state.cancelledOrders.push({...action.payload});
             })
     }
 });

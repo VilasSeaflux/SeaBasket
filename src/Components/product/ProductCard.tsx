@@ -1,6 +1,5 @@
 "use client"
 import { Badge, Button, Col, Row } from "react-bootstrap";
-import { AiFillStar } from 'react-icons/ai'
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/Redux/Features/cartSlice";
 import { ToastContainer } from "react-toastify";
@@ -35,10 +34,7 @@ export default function ProductCard({ productData, url }: { productData: any, ur
                                 ) : ''
                             }
                             <div className="my-2">
-                                {/* <p className="my-auto"> */}
-                                    <Rating value={productData.avgRating} readOnly className="rating" />
-                                    {/* <span><AiFillStar className="h5 mt-1" fill="#FFBF00" /></span> */}
-                                {/* </p> */}
+                                <Rating value={productData.avgRating} readOnly className="rating" />
                             </div>
                             <h5>
                                 {
@@ -46,7 +42,7 @@ export default function ProductCard({ productData, url }: { productData: any, ur
                                 }
                             </h5>
                             <div>
-                                <Button className="primary-btn me-2" onClick={() => dispatch(addToCart({...productData,quantity:1}))}>Add to Cart</Button>
+                                <Button className="primary-btn me-2" onClick={() => dispatch(addToCart({ ...productData, quantity: 1 }))}>Add to Cart</Button>
                                 <Button className="secondary-btn">Buy Now</Button>
                             </div>
 
