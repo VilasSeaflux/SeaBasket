@@ -1,5 +1,6 @@
+import { FC } from "react";
 
-const EmptyCart = () => {
+const EmptyCart:FC = () => {
     return (
         <div className="h-50 d-flex justify-content-center align-items-center">
             <div className="h-100">

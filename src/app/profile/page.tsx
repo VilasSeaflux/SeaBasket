@@ -2,7 +2,6 @@
 import { FC } from "react";
 import { Col, Row, Nav, Tab } from "react-bootstrap";
 
-import './profile.css'
 import BasicDetailsForm from "@/Components/profile/BasicDetailsForm";
 import AddressForm from "@/Components/profile/AdderessForm";
 import Orders from "@/Components/profile/Orders";
@@ -10,7 +9,7 @@ const Profile: FC = () => {
     return (
         <section id="profile" className="container bg-light py-3">
             <div>
-                <h1 className="text-center header"><span className="secondary">User</span> Profile</h1>
+                <h1 className="text-center primary-text"><span className="secondary-text">User</span> Profile</h1>
             </div>
             <Tab.Container id="left-tabs" defaultActiveKey="basic_details">
                 <Row>

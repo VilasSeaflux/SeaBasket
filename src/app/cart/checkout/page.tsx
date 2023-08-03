@@ -1,41 +1,41 @@
 "use client"
+import { FC, useState } from 'react';
+import { ORDER } from '@/Helper/CONSTANTS';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { emptyCart } from '@/Redux/Features/cartSlice';
+import { Button } from 'react-bootstrap';
+import { Stepper } from 'react-form-stepper';
+import { ToastContainer, toast } from 'react-toastify';
+
 import AddressForm from '@/Components/profile/AdderessForm';
 import BasicDetailsForm from '@/Components/profile/BasicDetailsForm';
 import PaymentForm from '@/Components/profile/PaymentForm';
-import { ORDER } from '@/Helper/CONSTANTS';
 import axios from '@/Helper/axios';
 import Rupee from '@/Helper/priceFormat';
 import useAuth from '@/Hooks/useAuth';
-import { emptyCart } from '@/Redux/Features/cartSlice';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { Stepper } from 'react-form-stepper';
-import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
 
 import "react-toastify/dist/ReactToastify.css";
 
-const UserDetails = () => {
+const UserDetails:FC = () => {
     return <BasicDetailsForm />;
 }
 
-const Address = () => {
+const Address:FC = () => {
     return <AddressForm />;
 }
 
-const Payment = (props:any) => {
-    return <PaymentForm filled={props.isFilled}/>;
+const Payment:FC = (props: any) => {
+    return <PaymentForm filled={props.isFilled} />;
 }
 
-const  Confirmation = () => {
+const Confirmation:FC = () => {
     return <h2>Booking is confirmed</h2>;
 }
-const Checkout = () => {
+const Checkout:FC = () => {
     const [activeStep, setActiveStep] = useState(0);
     const total = useSelector((state: any) => state.myCart.totalPrice);
-    const cart = useSelector((state:any) => state.myCart.cart);
-    const [paymentInfo,setPaymentInfo ]= useState(true);
+    const [paymentInfo, setPaymentInfo] = useState(true);
     const dispatch = useDispatch();
     const { token } = useAuth();
     const router = useRouter();
@@ -48,7 +48,7 @@ const Checkout = () => {
     function getSectionComponent() {
         switch (activeStep) {
             case 0: return <UserDetails />;
-            case 1: return <Payment isFilled={setPaymentInfo}/>;
+            case 1: return <Payment isFilled={setPaymentInfo} />;
             case 2: return <Address />;
             case 3: return <Confirmation />;
             default: return null;
@@ -68,7 +68,6 @@ const Checkout = () => {
             if (data) {
                 toast.success(data.message);
             }
-            console.log(res, data);
             dispatch(emptyCart());
             return data;
         } catch (err: any) {
@@ -83,7 +82,7 @@ const Checkout = () => {
 
     return (
         <section className="container bg-light py-4">
-            <ToastContainer autoClose={1500}/>
+            <ToastContainer autoClose={1500} />
             <h1 className="header"><span>Checkout</span><span className='float-end small'>Total : {Rupee.format(total)}</span></h1>
             <div className='bg-white'>
                 <Stepper
@@ -103,15 +102,10 @@ const Checkout = () => {
                     {
                         activeStep === 2 ? (
                             <Button className='primary-btn mt-5 border-success-subtle' onClick={handleOrder}>Place Order</Button>
-                        ) : ((activeStep !== steps.length-1) &&
-                            <Button className='primary-btn mt-5 border-success-subtle' onClick={() => setActiveStep(activeStep + 1)} disabled={ activeStep === 1 ? paymentInfo : false}>Next</Button>
+                        ) : ((activeStep !== steps.length - 1) &&
+                            <Button className='primary-btn mt-5 border-success-subtle' onClick={() => setActiveStep(activeStep + 1)} disabled={activeStep === 1 ? paymentInfo : false}>Next</Button>
                         )
                     }
-                    {/* {(activeStep !== steps.length - 1)
-                        && <Button className='primary-btn mt-5 border-success-subtle' onClick={() => setActiveStep(activeStep + 1)}>Next</Button>
-                    }
-                    {(activeStep === 2) && <Button className='primary-btn mt-5 border-success-subtle' onClick={handleOrder}>Place Order</Button>} */}
-
                     {(activeStep === steps.length - 1)
                         && <Button className='primary-btn mt-5 border-success-subtle' onClick={() => router.push('/')}>Home</Button>
                     }

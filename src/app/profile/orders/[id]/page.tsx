@@ -1,21 +1,22 @@
 "use client"
-import OrdersCard from "@/Components/profile/OrdersCard";
-import { ORDER, PROFILE } from "@/Helper/CONSTANTS";
-import axios from "@/Helper/axios";
-import Rupee from "@/Helper/priceFormat";
-import useAuth from "@/Hooks/useAuth";
-import { CancelOrder } from "@/Redux/Features/userSlice";
-import Loading from "@/app/loading";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import { ORDER } from "@/Helper/CONSTANTS";
+import { Button } from "react-bootstrap";
 import { Stepper } from "react-form-stepper";
+import { useParams } from "next/navigation";
+import { CancelOrder } from "@/Redux/Features/userSlice";
+import { ToastContainer} from "react-toastify";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+
+import OrdersCard from "@/Components/profile/OrdersCard";
+import axios from "@/Helper/axios";
+import useAuth from "@/Hooks/useAuth";
+import Loading from "@/app/loading";
+
 import "react-toastify/dist/ReactToastify.css";
 
 
-const Orders = () => {
+const Orders:FC = () => {
     const [ordersData, setOrdersData] = useState<any>();
     const [activeStep, setActiveStep] = useState(0);
     const [loader, setLoader] = useState(false);
@@ -25,7 +26,6 @@ const Orders = () => {
     //date settings
     const CurrentDate = new Date();
     const orderData = useSelector((state: any) => state?.user?.orders?.filter((item: any) => item.id == params.id));
-    console.log(orderData)
     const date = new Date(orderData[0].orderDate);
     const OrderedDate = new Date(date);
     const dispatchedDate = new Date(date);
@@ -34,10 +34,6 @@ const Orders = () => {
     dispatchedDate.setDate(dispatchedDate.getDate() + 1);
     arrivedDate.setDate(OrderedDate.getDate() + 2);
     delivered.setDate(OrderedDate.getDate() + 3);
-    // console.log(CurrentDate);
-    // console.log(dispatchedDate);
-    // console.log(arrivedDate);
-    // console.log(delivered);
 
     const { token } = useAuth();
     const getOrdersData = async () => {
@@ -49,7 +45,6 @@ const Orders = () => {
                 }
             )
             const data = await res.data;
-            console.log(data);
             setOrdersData(data);
         } catch (err) {
             console.log(err);

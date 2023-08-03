@@ -1,18 +1,19 @@
 'use client'
 import { Row } from "react-bootstrap";
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect } from 'react';
 import { getCategories } from '@/Redux/Features/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 import useAuth from '@/Hooks/useAuth';
 import CategoryCard from './CategoryCard';
 
-const ProductCategory: any = () => {
+const ProductCategory:FC = () => {
     const categories = useSelector((state: any) => state?.product?.categories);
     const { token } = useAuth();
     const dispatch = useDispatch();
 
     useEffect(() => {
-            dispatch(getCategories(token));
+        dispatch(getCategories(token));
     }, [token, dispatch]);
 
     return (

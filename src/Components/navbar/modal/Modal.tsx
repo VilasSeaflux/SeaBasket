@@ -1,14 +1,15 @@
 "use client"
 import { FC } from "react"
-import { Button, Modal } from "react-bootstrap";
+import { emptyCart } from "@/Redux/Features/cartSlice";
 import { useRouter } from "next/navigation";
+import { clearUser } from "@/Redux/Features/userSlice";
+import { useDispatch } from "react-redux";
+import { removeIsAuth } from "@/Redux/Features/authSlice";
+import { Button, Modal } from "react-bootstrap";
+
 import axios from "axios";
 import wait from "@/Helper/wait";
 
-import { useDispatch } from "react-redux";
-import { emptyCart } from "@/Redux/Features/cartSlice";
-import { removeIsAuth } from "@/Redux/Features/authSlice";
-import { clearUser } from "@/Redux/Features/userSlice";
 
 const ModalComponent: FC = ({ onShow, onHandleModal }: any) => {
     const dispatch = useDispatch();

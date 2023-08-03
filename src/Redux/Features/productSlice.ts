@@ -19,7 +19,6 @@ export const getProductsData: any = createAsyncThunk("get/Products", async (toke
                 }
             });
         const data = await res.data;
-        // console.log(data);
         return data;
     } catch (err) {
         console.log(err);
@@ -34,7 +33,6 @@ export const getCategories: any = createAsyncThunk("get/categories", async (toke
         }
     )
     const data = await res.data;
-    console.log(data);
     return data.categories;
 });
 
@@ -47,7 +45,6 @@ export const getCategoryProduct: any = createAsyncThunk('get/categoryProducts', 
             }
         );
         const data = await res.data;
-        console.log(data);
         return data;
     } catch (err) {
         console.log(err);
@@ -63,7 +60,6 @@ export const getTrendingProducts: any = createAsyncThunk('get/Trending_products'
             }
         );
         const data = await res.data;
-        console.log(data);
         return data;
     } catch (err) {
         console.log(err);
@@ -79,7 +75,6 @@ export const sortBy: any = createAsyncThunk('get/Sorted_products', async ({ toke
             }
         );
         const data = await res.data;
-        console.log(data);
         return data;
     }catch(err){
         console.log(err);

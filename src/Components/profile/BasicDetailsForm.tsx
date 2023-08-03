@@ -1,15 +1,15 @@
 
-import { getUserData, updateProfile, updateUserProfile } from "@/Redux/Features/userSlice";
-import { useState, useEffect } from "react";
-import { Row, Col, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { Row, Col, Button } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import { useState, useEffect, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getUserData, updateProfile, updateUserProfile } from "@/Redux/Features/userSlice";
 
 import useAuth from "@/Hooks/useAuth";
-import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 
-const BasicDetailsForm = () => {
+const BasicDetailsForm: FC = () => {
     const profile = useSelector((state: any) => state.user.profile);
     const [profileData, setProfileData] = useState({
         name: profile?.name,
@@ -41,61 +41,61 @@ const BasicDetailsForm = () => {
         dispatch(getUserData(token));
     }, [dispatch, token]);
     return (
-     
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <ToastContainer autoClose={1500} />
-                <Row>
-                    <h4 className="my-3"><span>Basic</span> Details</h4>
-                    <Col xs={12} md={6}>
-                        <div className="mb-2">
-                            <label htmlFor="name" className="form-label">Username</label>
-                            <input
-                                type="text"
-                                id="name"
-                                value={profileData.name}
-                                className="form-control"
-                                {...register('name')}
-                                onChange={handleChange}
-                            />
-                            {
-                                errors.name && <small>Please Enter Name</small>
-                            }
-                        </div>
-                    </Col>
-                    <Col xs={12} md={6}>
-                        <div className="mb-2">
-                            <label htmlFor="email" className="form-label">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                value={profileData.email}
-                                className="form-control"
-                                {...register('email')}
-                                onChange={handleChange}
 
-
-                            />
-                        </div>
-                    </Col>
-                    <Col xs={12} md={6}>
-                        <div className="mb-2">
-                            <label htmlFor="PhoneNo" className="form-label">Phone No</label>
-                            <input
-                                type="number"
-                                id="PhoneNo"
-                                value={profileData.phoneNo}
-                                className="form-control"
-                                {...register('phoneNo')}
-                                onChange={handleChange}
-                            />
-
-                        </div>
-                    </Col>
-                    <div>
-                        <Button type="submit" className="primary-btn border-success-subtle">Update</Button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <ToastContainer autoClose={1500} />
+            <Row>
+                <h4 className="my-3"><span>Basic</span> Details</h4>
+                <Col xs={12} md={6}>
+                    <div className="mb-2">
+                        <label htmlFor="name" className="form-label">Username</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={profileData.name}
+                            className="form-control"
+                            {...register('name')}
+                            onChange={handleChange}
+                        />
+                        {
+                            errors.name && <small>Please Enter Name</small>
+                        }
                     </div>
-                </Row>
-            </form>
+                </Col>
+                <Col xs={12} md={6}>
+                    <div className="mb-2">
+                        <label htmlFor="email" className="form-label">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={profileData.email}
+                            className="form-control"
+                            {...register('email')}
+                            onChange={handleChange}
+
+
+                        />
+                    </div>
+                </Col>
+                <Col xs={12} md={6}>
+                    <div className="mb-2">
+                        <label htmlFor="PhoneNo" className="form-label">Phone No</label>
+                        <input
+                            type="number"
+                            id="PhoneNo"
+                            value={profileData.phoneNo}
+                            className="form-control"
+                            {...register('phoneNo')}
+                            onChange={handleChange}
+                        />
+
+                    </div>
+                </Col>
+                <div>
+                    <Button type="submit" className="primary-btn border-success-subtle">Update</Button>
+                </div>
+            </Row>
+        </form>
     );
 }
 export default BasicDetailsForm;

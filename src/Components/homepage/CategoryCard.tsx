@@ -1,9 +1,9 @@
 
-import { useRouter } from "next/navigation";
-import { FC } from "react";
 import { Col } from "react-bootstrap";
+import { FC } from "react";
+import { useRouter } from "next/navigation";
 
-const CategoryCard: FC = (props:any) => {
+const CategoryCard: FC = (props: any) => {
     const route = useRouter();
     return (
         <Col sm={6} md={3} className="text-capitalize pointer-event">

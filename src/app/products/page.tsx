@@ -1,12 +1,9 @@
 'use client'
+import { FC } from "react";
+import { useSelector } from "react-redux";
+
 import BreadCrumb from "@/Components/breadcrumb/BreadCrumb";
 import ProductCard from "@/Components/product/ProductCard";
-import { SORTED_PRODUCTS } from "@/Helper/CONSTANTS";
-import axios from "@/Helper/axios";
-import useAuth from "@/Hooks/useAuth";
-import { sortBy } from "@/Redux/Features/productSlice";
-import { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Loading from "../loading";
 import Filter from "@/Components/filter/Filter";
 

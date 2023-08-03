@@ -1,13 +1,13 @@
-import useAuth from "@/Hooks/useAuth";
 import { sortBy } from "@/Redux/Features/productSlice";
-import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useState, useEffect, FC } from "react";
 
-const Filter = () => {
+import useAuth from "@/Hooks/useAuth";
+const Filter: FC = () => {
     const [sort, setSort] = useState('id');
     const [order, setOrder] = useState('asc');
     const dispatch = useDispatch();
-    const {token} = useAuth();
+    const { token } = useAuth();
 
     const handleSortChange = (e: any) => {
         setSort(e.target.value);

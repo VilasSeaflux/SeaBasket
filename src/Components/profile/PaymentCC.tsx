@@ -1,5 +1,6 @@
+import { FC } from "react";
 import { Row, Col } from "react-bootstrap"
-const PaymentCC = ({ register, errors }: any) => {
+const PaymentCC: FC = ({ register, errors }: any) => {
     return (
         <Row>
             <Col md={6}>

@@ -1,12 +1,13 @@
+import { FC } from "react";
 import { Breadcrumb } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import './breadcrumb.css';
-export default function BreadCrumb(props: any) {
+const BreadCrumb: FC = (props: any) => {
     const router = useRouter();
     return (
         <Breadcrumb id="breadcrumb" className="pb-0 mb-0">
             <Breadcrumb.Item className="item pt-2 ps-2" onClick={() => router.push('/')}>
-                    Home
+                Home
             </Breadcrumb.Item>
             <Breadcrumb.Item className="item pt-2">
                 Category
@@ -31,3 +32,4 @@ export default function BreadCrumb(props: any) {
         </Breadcrumb>
     );
 }
+export default BreadCrumb;

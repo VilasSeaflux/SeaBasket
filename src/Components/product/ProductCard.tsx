@@ -1,9 +1,11 @@
 "use client"
-import { Badge, Button, Col, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/Redux/Features/cartSlice";
-import { ToastContainer } from "react-toastify";
+import { FC } from "react";
 import { Rating } from '@smastrom/react-rating'
+import { addToCart } from "@/Redux/Features/cartSlice";
+import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import { Badge, Button, Col, Row } from "react-bootstrap";
+
 import Link from "next/link";
 import Rupee from "@/Helper/priceFormat";
 import Image from "next/image";
@@ -11,7 +13,7 @@ import Image from "next/image";
 import 'react-toastify/dist/ReactToastify.css'
 import '@smastrom/react-rating/style.css'
 
-export default function ProductCard({ productData, url }: { productData: any, url: string }) {
+const ProductCard: FC = ({ productData, url }: any) => {
     const dispatch = useDispatch();
 
     return (
@@ -21,7 +23,7 @@ export default function ProductCard({ productData, url }: { productData: any, ur
                 <Row className='align-items-center justify-content-center'>
                     <Col sm={3} className="text-center">
                         <Link href={`${url}/product/${productData.id}`} className="text-decoration-none">
-                            <Image src={productData.imageUrl} alt='laptop 1' className='img-thumbnail border-0 ci' width={200} height={200} loading="lazy"/>
+                            <Image src={productData.imageUrl} alt='laptop 1' className='img-thumbnail border-0 ci' width={200} height={200} loading="lazy" />
                         </Link>
                     </Col>
                     <Col sm={9}>
@@ -54,3 +56,4 @@ export default function ProductCard({ productData, url }: { productData: any, ur
         </div>
     );
 }
+export default ProductCard;
