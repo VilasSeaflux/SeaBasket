@@ -36,6 +36,11 @@ export default function NavBar() {
                     </Navbar.Brand>
                 </Link>
                 <Nav className="ms-auto justify-content-center align-items-center">
+                    <Link href="products">
+                        <Button className='secondary-btn me-2 text-dark'>
+                            Products
+                        </Button>
+                    </Link>
                     <Link href='/cart'>
                         <Button className='primary-btn me-2'>
                             <span className='me-1 '>{cart?.length}</span><AiOutlineShoppingCart />

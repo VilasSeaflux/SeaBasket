@@ -7,9 +7,9 @@ import { useParams } from 'next/navigation';
 import useAuth from '@/Hooks/useAuth';
 import Loading from '@/app/loading';
 
-import FilterCanvas from '@/Components/product/FilterCanvas';
 import ProductCard from '@/Components/product/ProductCard';
 import BreadCrumb from '@/Components/breadcrumb/BreadCrumb';
+import Filter from '@/Components/filter/Filter';
 
 
 const ProductCategory: FC = () => {
@@ -38,7 +38,7 @@ const ProductCategory: FC = () => {
         <section className="bg-light container pb-5" id="productCategory">
             <div className="container d-flex justify-content-between align-items-center py-3">
                 <h1 className='primary-text'><span className='secondary-text'>Product </span> {decodedURL}</h1>
-                <h6 className='header-6' onClick={handleShow as any}>Filters</h6>
+                {/* <Filter /> */}
             </div>
             <div className='container-fluid mb-3'>
                 <BreadCrumb name={decodedURL} />
@@ -50,7 +50,6 @@ const ProductCategory: FC = () => {
                     ))
                 }
             </div>
-            <FilterCanvas onShow={showCanvas} onHandleShow={handleShow} />
         </section>
     );
 }
