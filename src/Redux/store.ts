@@ -8,7 +8,6 @@ import { persistReducer, persistStore } from 'redux-persist';
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['product']
 }
 
 const combinedReducer = combineReducers({

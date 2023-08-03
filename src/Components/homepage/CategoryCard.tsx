@@ -6,7 +6,7 @@ import { Col } from "react-bootstrap";
 const CategoryCard: FC = (props:any) => {
     const route = useRouter();
     return (
-        <Col sm={6} md={3}>
+        <Col sm={6} md={3} className="text-capitalize pointer-event">
             <div className="card" onClick={() => route.push(`category/${props.title}`)}>
                 <div className="card-body">
                     <div className="card-text">
