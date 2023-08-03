@@ -1,6 +1,6 @@
+import { FC } from "react";
 import Rupee from "@/Helper/priceFormat";
-
-const CartList = ({item}:{item:any}) => {
+const CartList:FC = ({item}:any) => {
     return (
         <>
             <li key={item.id} className="mt-2 d-flex flex-row justify-content-between align-items-start">

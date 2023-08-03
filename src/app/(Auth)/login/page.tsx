@@ -1,4 +1,5 @@
 'use client'
+import { FC } from 'react';
 import { LOGIN } from '@/Helper/CONSTANTS';
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -17,7 +18,7 @@ interface User {
     "password": string
 }
 
-const Login = () => {
+const Login:FC = () => {
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter();
 
@@ -33,12 +34,10 @@ const Login = () => {
             reset();
             router.push(`login/${token}`);
         } catch (error:any) {
-            console.log(error);
             toast.warn(error?.response?.data?.message);
         }
     }
     const onSubmit: any = (data: User) => {
-        console.log(data);
         login(data);
     }
     

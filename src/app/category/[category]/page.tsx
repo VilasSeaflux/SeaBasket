@@ -1,39 +1,24 @@
 "use client"
-import { useState, FC, useEffect, lazy } from 'react';
+import { useParams } from 'next/navigation';
+import { FC, useEffect,} from 'react';
 import { getCategoryProduct } from '@/Redux/Features/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'next/navigation';
 
 import useAuth from '@/Hooks/useAuth';
-import Loading from '@/app/loading';
-
 import ProductCard from '@/Components/product/ProductCard';
 import BreadCrumb from '@/Components/breadcrumb/BreadCrumb';
-import Filter from '@/Components/filter/Filter';
 
 
 const ProductCategory: FC = () => {
-    const [laoder,setLoader] = useState(false);
-    const [showCanvas, setShowCanvas] = useState(false);
     const dispatch = useDispatch();
-    const productsData = useSelector((state:any) => state?.product?.categoryProduct);
-    const handleShow = () => setShowCanvas(!showCanvas);
+    const productsData = useSelector((state: any) => state?.product?.categoryProduct);
     const { category } = useParams();
-    const { token, isAuth } = useAuth();
+    const { token } = useAuth();
     const decodedURL = decodeURI(category);
 
     useEffect(() => {
-        setLoader(true);
         dispatch(getCategoryProduct(decodedURL, token));
-
-        return () => {
-            setLoader(false);
-        }
-    }, [])
-
-    if(!laoder){
-        return <Loading />
-    }
+    }, [dispatch, token, decodedURL]);
     return (
         <section className="bg-light container pb-5" id="productCategory">
             <div className="container d-flex justify-content-between align-items-center py-3">
@@ -46,7 +31,7 @@ const ProductCategory: FC = () => {
             <div className='container '>
                 {
                     productsData.map((item: any) => (
-                        <ProductCard productData={item} key={item.id} url={decodedURL}/>
+                        <ProductCard productData={item} key={item.id} url={decodedURL} />
                     ))
                 }
             </div>

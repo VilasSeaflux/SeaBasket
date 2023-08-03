@@ -1,12 +1,15 @@
-import Rupee from "@/Helper/priceFormat"
+import { FC } from "react";
 import { Row, Col } from "react-bootstrap"
-const OrdersCard = ({item}:any) => {
-    console.log(item)
+
+import Rupee from "@/Helper/priceFormat"
+import Image from "next/image";
+
+const OrdersCard: FC = ({ item }: any) => {
     return (
         <>
             <Row className="bg-white mb-2 p-4 border rounded-3 pb-0">
                 <Col md={3}>
-                    <img src={item.imageUrl} className="w-75 h-75 object-fit-contain" />
+                    <Image src={item.imageUrl} className="w-75 h-75 object-fit-contain" width={200} height={200} alt={item} />
                 </Col>
                 <Col md={9} className="d-flex flex-column align-items-start justify-content-center">
                     <h6><h5 className="fw-bolder d-inline">Name </h5> : {item.name}</h6>

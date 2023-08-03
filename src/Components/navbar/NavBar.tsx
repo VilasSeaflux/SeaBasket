@@ -1,8 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react';
-import { Button, Container, Nav, Navbar, Dropdown } from 'react-bootstrap';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Button, Container, Nav, Navbar, Dropdown } from 'react-bootstrap';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,17 +13,16 @@ import useAuth from '@/Hooks/useAuth';
 
 import './navbar.css'
 
-
-export default function NavBar() {
-    const [showModal,setShowModal] = useState(false);
-    const {cart} = useSelector((state:any) => state?.myCart);
-    const {token} = useAuth();
+const NavBar: FC = () => {
+    const [showModal, setShowModal] = useState(false);
+    const { cart } = useSelector((state: any) => state?.myCart);
+    const { token } = useAuth();
 
     const handleModal = () => setShowModal(!showModal);
 
     return (
         <Navbar className='nav-wrapper'>
-            <ModalComponent onShow={showModal} onHandleModal={handleModal}/>
+            <ModalComponent onShow={showModal} onHandleModal={handleModal} />
             <Container>
                 <Link href='..' className='text-decoration-none'>
                     <Navbar.Brand>
@@ -32,7 +31,7 @@ export default function NavBar() {
                             alt='logo'
                             className='navbar-logo'
                             loading='lazy'
-                            />
+                        />
                     </Navbar.Brand>
                 </Link>
                 <Nav className="ms-auto justify-content-center align-items-center">
@@ -60,11 +59,9 @@ export default function NavBar() {
                                         <Image src={profile} alt={'profile picture'} className='profile' />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        {/* <Dropdown.Item> */}
-                                            <Link className='ps-3 text-decoration-none' href="/profile">
-                                                Profile
-                                            </Link>
-                                        {/* </Dropdown.Item> */}
+                                        <Link className='ps-3 text-decoration-none' href="/profile">
+                                            Profile
+                                        </Link>
                                         <Dropdown.Item onClick={() => setShowModal(true)}>
                                             Logout
                                         </Dropdown.Item>
@@ -78,5 +75,7 @@ export default function NavBar() {
             </Container>
         </Navbar>
 
-    )
+    );
 }
+
+export default NavBar;

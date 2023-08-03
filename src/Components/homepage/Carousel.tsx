@@ -1,10 +1,11 @@
 'use client'
-import { useEffect, useState } from "react"
-import { Carousel } from "react-bootstrap"
 import { FC } from "react"
-import useAuth from "@/Hooks/useAuth"
+import { Carousel } from "react-bootstrap"
 import { getTrendingProducts } from "@/Redux/Features/productSlice"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+
+import useAuth from "@/Hooks/useAuth"
 import Loading from  "@/app/loading";
 import ProductCard from  "../product/ProductCard";
 

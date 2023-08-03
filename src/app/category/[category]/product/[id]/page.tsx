@@ -1,19 +1,19 @@
 "use client"
-import { FC, useEffect, useState } from "react";
-import { Badge, Button, Col, Row } from "react-bootstrap";
-import { useParams } from "next/navigation";
-import { PRODUCT } from "@/Helper/CONSTANTS";
-import { ToastContainer } from "react-toastify";
-import { addToCart } from "@/Redux/Features/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { Rating } from '@smastrom/react-rating';
+import { PRODUCT } from "@/Helper/CONSTANTS";
+import { useParams } from "next/navigation";
+import { addToCart } from "@/Redux/Features/cartSlice";
+import { ToastContainer } from "react-toastify";
 import { Controller, useForm } from "react-hook-form";
+import { Badge, Button, Col, Row } from "react-bootstrap";
+import { FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import BreadCrumb from "@/Components/breadcrumb/BreadCrumb";
 import useAuth from "@/Hooks/useAuth";
 import axios from "@/Helper/axios";
 import Rupee from "@/Helper/priceFormat";
-import Loading from "@/app/loading";
+import Image from "next/image";
 
 import "react-toastify/dist/ReactToastify.css";
 import '@smastrom/react-rating/style.css'
@@ -36,7 +36,6 @@ const ProductPage: FC = () => {
             }
         )
         const data = await res.data;
-        console.log(data);
         setProduct(data.product);
     }
 
@@ -53,7 +52,6 @@ const ProductPage: FC = () => {
 
     useEffect(() => {
         getProduct();
-
     }, []);
 
 
@@ -69,7 +67,7 @@ const ProductPage: FC = () => {
             <div className="container-fluid">
                 <Row className="">
                     <Col sm={4} className="my-auto text-center">
-                        <img src={product?.imageUrl} alt={product?.name} className="img-fluid img-thumbnail" />
+                        <Image src={product?.imageUrl} alt={product?.name} className="img-fluid ci" width={400} height={400} />
                     </Col>
                     <Col sm={8} className="my-5">
                         <div>
@@ -88,19 +86,6 @@ const ProductPage: FC = () => {
                         <div className="mt-3">
                             <h4>{Rupee.format(product?.price)}</h4>
                         </div>
-                        {/* <div className="mt-3">
-                            <h4>Description :</h4>
-                            <p className="px-3 text-justify">
-                                {
-                                    !open ? product?.description.substring(1,5) +"..." : ''
-                                }
-                            <Collapse in={open}>
-                                <div>{product?.description}</div>
-                            </Collapse>
-                            <span onClick={() => setOpen(!open)} className="text-primary float-end">View More</span>
-                            </p>
-
-                        </div> */}
                         <label htmlFor="qty">Quantity</label>
                         <input
                             id="qty"

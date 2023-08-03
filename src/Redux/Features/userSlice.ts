@@ -30,7 +30,6 @@ export const getUserData: any = createAsyncThunk('get/UserData', async (token) =
         }
     );
     const data = await res.data;
-    console.log(data);
     return data;
 });
 
@@ -44,7 +43,6 @@ export const updateUserProfile: any = createAsyncThunk('put/UserData', async ({ 
             }
         );
         const returnedData = await res.data;
-        console.log(returnedData);
         return returnedData;
     } catch (err) {
         console.log(err);
@@ -59,7 +57,6 @@ export const getOrders:any = createAsyncThunk('get/Orders', async(token) => {
                 headers: {"Authorization": `bearer ${token}`}
             });
         const data = await res.data;
-        console.log(data);
         return data.orders;
     }catch(err){
         console.log(err);
@@ -76,7 +73,6 @@ export const CancelOrder:any = createAsyncThunk('post/cancelOrder',async ({token
             }
         );
         const data = await res.data;
-        console.log(data);
         toast.success("Order Canceled!!");
         return data.orders;
     }catch(err){

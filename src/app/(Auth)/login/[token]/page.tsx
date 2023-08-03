@@ -2,10 +2,9 @@
 import { FC } from "react";
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
-import { useCookies } from "react-cookie";
-import { useDispatch } from "react-redux";
 import { setIsAuth } from "@/Redux/Features/authSlice";
+import { useDispatch } from "react-redux";
+import { useParams, useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 
 import wait from "@/Helper/wait";
@@ -13,6 +12,7 @@ import axios from "@/Helper/axios";
 
 import '../../page.css'
 import "react-toastify/dist/ReactToastify.css";
+
 interface otp {
     OTP: string;
 }
@@ -20,18 +20,14 @@ interface otp {
 const Verification: FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const dispatch = useDispatch(); 
-
     const routeToken = useParams();
     const router = useRouter();
-    console.log(routeToken);
-
     const verifyUser = async (otp: otp) => {
         try {
             const res = await axios.post(
                 '/login/' + routeToken?.token,
                 JSON.stringify(otp),
             );
-            console.log(res);
             const token = await res?.data?.authToken;
             toast.success("User Verification Successful...");
             localStorage.setItem("token",JSON.stringify(token));
@@ -40,13 +36,11 @@ const Verification: FC = () => {
             router.push('/')
         }
         catch (error:any) {
-            console.log(error);
             toast.error(error?.response?.data?.message);
         }
     }
 
     const onSubmit: any = (data: otp) => {
-        console.log(data);
         verifyUser(data);
     }
 

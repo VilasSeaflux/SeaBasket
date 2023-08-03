@@ -1,12 +1,14 @@
-'use client'
+
+import { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs';
-import { useEffect, useState } from 'react';
+
 import Image from 'next/image';
 import logo from '../../../public/images/logo.png'
+
 import './footer.css';
 
-const Footer = () => {
+const Footer: FC = () => {
     return (
         <section id="footer" className="">
             <div className='container'>

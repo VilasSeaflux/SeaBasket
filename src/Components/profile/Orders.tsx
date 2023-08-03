@@ -1,19 +1,17 @@
 
-import { getOrders } from "@/Redux/Features/userSlice";
-import { useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { AiFillEye } from "react-icons/ai";
+import { useRouter } from "next/navigation";
+import { getOrders } from "@/Redux/Features/userSlice";
+import { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import useAuth from "@/Hooks/useAuth";
-import { useRouter } from "next/navigation";
 
-const Orders = () => {
+const Orders: FC = () => {
     const orders = useSelector((state: any) => state?.user?.orders);
-    const cancelledOrders = useSelector((state:any) => state?.user?.cancelledOrders);
-    console.log(cancelledOrders);
+    const cancelledOrders = useSelector((state: any) => state?.user?.cancelledOrders);
     const router = useRouter();
-    console.log(orders);
     const { token } = useAuth();
     const dispatch = useDispatch();
 
@@ -53,7 +51,7 @@ const Orders = () => {
                                                         }
                                                     </ul>
                                                 </td>
-                                                <td>{cancelledOrders.map((product:any) =>product.id === item.id ? product.status  : '')}</td>
+                                                <td>{cancelledOrders.map((product: any) => product.id === item.id ? product.status : '')}</td>
                                                 <td className="text-center">
                                                     <Button className="secondary-btn" onClick={() => router.push(`profile/orders/${item.id}`)}>
                                                         <AiFillEye />

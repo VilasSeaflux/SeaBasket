@@ -1,11 +1,11 @@
 "use client"
+import { Suspense } from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Suspense, lazy } from 'react';
 import { persistedStore } from '@/Redux/store';
 import RTKProvider from '@/Redux/Provider';
 import Loading from './loading';
-import 'bootstrap/dist/css/bootstrap.css';
 import Footer from '@/Components/footer/Footer';
+import 'bootstrap/dist/css/bootstrap.css';
 import NavBar from '@/Components/navbar/NavBar';
 
 export default function RootLayout({

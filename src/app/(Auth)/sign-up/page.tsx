@@ -1,8 +1,8 @@
 'use client'
-import { FC, useEffect, useState } from 'react';
-import { SIGN_UP } from '@/Helper/CONSTANTS';
-import { Button, Toast } from "react-bootstrap";
+import { FC } from 'react';
+import { Button } from "react-bootstrap";
 import { useForm } from 'react-hook-form';
+import { SIGN_UP } from '@/Helper/CONSTANTS';
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -35,25 +35,17 @@ const SignUp: FC = () => {
                 SIGN_UP,
                 JSON.stringify(userInputData),
             );
-            console.log(res)
             toast.success("User Created Successfully....")
             await wait(2000);
             router.push('/login');
-        } catch (error:any) {
-            console.log(error);
+        } catch (error: any) {
             toast.error(error?.response?.data?.message?.msg);
-            console.log(error?.response?.data?.message?.msg);
         }
     }
-
     const onSubmit: any = (data: User) => {
-        console.log(data);
-        // setUserData({ ...data });
-        // console.log(userData);
         reset();
         signUp(data);
     }
-    
     return (
         <section className="container d-flex flex-column justify-content-center align-items-center auth-container">
             <ToastContainer autoClose={1000} />

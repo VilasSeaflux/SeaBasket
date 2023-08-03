@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { Row, Col, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import PaymentCC from "./PaymentCC";
 import { ToastContainer, toast } from "react-toastify";
+import { Row, Col, Button, Form } from "react-bootstrap";
+import { FC, useEffect, useState } from "react";
 
-const PaymentForm = ({filled}:any) => {
+import PaymentCC from "./PaymentCC";
+
+const PaymentForm: FC = ({ filled }: any) => {
     const [paymentType, setPaymentType] = useState('Credit Card');
     const [address, setAddress] = useState('');
-    console.log(filled);
     const {
         register,
         handleSubmit,
@@ -16,16 +16,15 @@ const PaymentForm = ({filled}:any) => {
     } = useForm();
 
     const onPaymentSubmit = (data: any) => {
-        console.log(data);
         toast.success("Payment Details stored...");
         filled(false);
     }
     useEffect(() => {
 
-        return() => {
+        return () => {
             filled(true);
         }
-    },[]);
+    }, []);
     return (
         <form onSubmit={(handleSubmit(onPaymentSubmit))}>
             <ToastContainer />
