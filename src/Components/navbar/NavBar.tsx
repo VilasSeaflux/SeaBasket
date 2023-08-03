@@ -6,8 +6,8 @@ import { Button, Container, Nav, Navbar, Dropdown } from 'react-bootstrap';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from '@/public/images/logo.png';
-import profile from '@/public/images/profile.webp'
+import logo from '../../../public/images/logo.png';
+import profile from '../../../public/images/profile.webp'
 import ModalComponent from './modal/Modal';
 import useAuth from '@/Hooks/useAuth';
 
